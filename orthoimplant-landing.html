@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OrthoImplant — Брекеты, виниры, элайнеры</title>
+<meta name="description" content="OrthoImplant — стоматологическая клиника в Таразе. Брекеты, виниры, элайнеры. Индивидуальный план лечения и современное оборудование.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --mint-bg:#f2fbf8;
+    --mint:#d7f3ea;
+    --mint-deep:#bdece0;
+    --teal:#0fa398;
+    --teal-dark:#0a7e76;
+    --blue:#4f7fc7;
+    --blue-soft:#e2ebfb;
+    --navy:#16283a;
+    --gray:#5c6b7a;
+    --gray-light:#8b98a6;
+    --line:#dbe8e4;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:10px;
+    --shadow-soft:0 10px 30px -12px rgba(22,40,58,0.14);
+    --shadow-hover:0 20px 40px -14px rgba(15,163,152,0.28);
+    --ease:cubic-bezier(.22,.9,.32,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:84px;}
+  body{
+    margin:0;
+    font-family:'Manrope', system-ui, sans-serif;
+    color:var(--navy);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.08;
+    margin:0;
+  }
+  p{margin:0;}
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  button{font-family:inherit; cursor:pointer;}
+  ul{margin:0; padding:0; list-style:none;}
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  :focus-visible{outline:2.5px solid var(--teal); outline-offset:3px; border-radius:4px;}
+
+  .wrap{
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:64px 0;} }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:var(--teal-dark);
+    font-weight:600;
+    margin-bottom:16px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1.5px;
+    background:var(--teal);
+    display:inline-block;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:16px 30px;
+    border-radius:100px;
+    font-weight:700;
+    font-size:15.5px;
+    border:none;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--navy);
+    color:var(--white);
+    box-shadow:0 10px 24px -10px rgba(22,40,58,0.45);
+  }
+  .btn-primary:hover{
+    background:var(--teal-dark);
+    transform:translateY(-3px);
+    box-shadow:0 16px 30px -10px rgba(10,126,118,0.45);
+  }
+  .btn-ghost{
+    background:var(--white);
+    color:var(--navy);
+    border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{
+    border-color:var(--teal);
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-soft);
+  }
+  .btn-block{width:100%;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,0.82);
+    backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom:1px solid rgba(219,232,228,0.7);
+  }
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:78px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:20px;
+    color:var(--navy);
+  }
+  .logo .dot{
+    width:10px; height:10px;
+    border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 0 4px var(--mint);
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:36px;
+  }
+  .nav-links a{
+    font-size:15px;
+    font-weight:600;
+    color:var(--gray);
+    position:relative;
+    padding:4px 0;
+    transition:color .25s var(--ease);
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-2px;
+    width:0%; height:2px;
+    background:var(--teal);
+    transition:width .3s var(--ease);
+  }
+  .nav-links a:hover{color:var(--navy);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex; align-items:center; gap:14px;}
+  .nav-cta .btn{padding:12px 22px; font-size:14px;}
+  .burger{
+    display:none;
+    width:42px; height:42px;
+    border:1.5px solid var(--line);
+    border-radius:50%;
+    background:var(--white);
+    align-items:center;
+    justify-content:center;
+  }
+  .burger span, .burger span::before, .burger span::after{
+    content:"";
+    display:block;
+    width:16px; height:1.6px;
+    background:var(--navy);
+    position:relative;
+    transition:all .25s var(--ease);
+  }
+  .burger span::before{position:absolute; top:-5px;}
+  .burger span::after{position:absolute; top:5px;}
+
+  @media (max-width:900px){
+    .nav-links, .nav-cta .btn-ghost{display:none;}
+    .burger{display:flex;}
+  }
+
+  .mobile-menu{
+    display:none;
+    flex-direction:column;
+    background:var(--white);
+    border-top:1px solid var(--line);
+    padding:10px 24px 22px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{
+    padding:14px 0;
+    border-bottom:1px solid var(--mint-bg);
+    font-weight:600;
+    color:var(--navy);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    padding:100px 0 40px;
+    background:
+      radial-gradient(60% 55% at 82% 8%, rgba(79,127,199,0.14), transparent 60%),
+      radial-gradient(50% 50% at 10% 25%, rgba(15,163,152,0.14), transparent 60%),
+      var(--mint-bg);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(38px, 5.4vw, 62px);
+    color:var(--navy);
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--teal-dark);
+  }
+  .hero-sub{
+    margin-top:22px;
+    font-size:18px;
+    color:var(--gray);
+    max-width:480px;
+  }
+  .hero-actions{
+    margin-top:36px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .hero-note{
+    font-size:13.5px;
+    color:var(--gray);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .hero-note svg{width:16px; height:16px; color:var(--teal);}
+
+  .hero-stats{
+    display:flex;
+    gap:32px;
+    margin-top:56px;
+    flex-wrap:wrap;
+  }
+  .hero-stats div{border-left:2px solid var(--mint-deep); padding-left:14px;}
+  .hero-stats .num{
+    font-family:'Fraunces', serif;
+    font-size:28px;
+    font-weight:600;
+    color:var(--navy);
+  }
+  .hero-stats .lbl{font-size:12.5px; color:var(--gray); margin-top:2px;}
+
+  .hero-visual{
+    position:relative;
+    aspect-ratio:1/1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .arc-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:conic-gradient(from 200deg, var(--mint), var(--blue-soft), var(--mint));
+    opacity:0.55;
+    filter:blur(0.3px);
+    animation:spin 26s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .smile-card{
+    position:relative;
+    width:78%;
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-soft);
+    padding:34px;
+    z-index:2;
+  }
+  .smile-card svg{width:100%; height:auto;}
+  .float-chip{
+    position:absolute;
+    background:var(--white);
+    border-radius:16px;
+    box-shadow:var(--shadow-soft);
+    padding:12px 16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    font-weight:700;
+    z-index:3;
+    animation:float 5s ease-in-out infinite;
+  }
+  .float-chip svg{width:20px; height:20px; color:var(--teal);}
+  .chip-1{top:4%; left:-6%; animation-delay:0s;}
+  .chip-2{bottom:8%; right:-8%; animation-delay:1.2s;}
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr; text-align:left;}
+    .hero-visual{max-width:400px; margin:0 auto;}
+    .float-chip{display:none;}
+  }
+
+  /* ---------- SECTION HEADS ---------- */
+  .section-head{
+    max-width:640px;
+    margin-bottom:56px;
+  }
+  .section-head h2{
+    font-size:clamp(30px, 3.6vw, 42px);
+    color:var(--navy);
+  }
+  .section-head p{
+    margin-top:16px;
+    font-size:16.5px;
+    color:var(--gray);
+  }
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+  .section-head.center .eyebrow::before{display:none;}
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:26px;
+  }
+  .service-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:38px 32px;
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  }
+  .service-card:hover{
+    transform:translateY(-8px);
+    box-shadow:var(--shadow-hover);
+    border-color:transparent;
+  }
+  .service-icon{
+    width:58px; height:58px;
+    border-radius:16px;
+    background:var(--mint-bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:26px;
+    transition:background .4s var(--ease), transform .4s var(--ease);
+  }
+  .service-card:hover .service-icon{
+    background:var(--teal);
+    transform:rotate(-6deg) scale(1.05);
+  }
+  .service-icon svg{width:28px; height:28px; color:var(--teal-dark); transition:color .4s var(--ease);}
+  .service-card:hover .service-icon svg{color:var(--white);}
+  .service-card h3{
+    font-size:22px;
+    margin-bottom:12px;
+    color:var(--navy);
+  }
+  .service-card p{
+    font-size:15px;
+    color:var(--gray);
+    line-height:1.6;
+  }
+  .service-tag{
+    display:inline-block;
+    margin-top:20px;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--teal-dark);
+  }
+  @media (max-width:900px){ .services-grid{grid-template-columns:1fr;} }
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--mint-bg);}
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:60px;
+    align-items:center;
+  }
+  .about-media{
+    position:relative;
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    background:linear-gradient(160deg, var(--teal) 0%, var(--blue) 100%);
+    aspect-ratio:4/5;
+    display:flex;
+    align-items:flex-end;
+    padding:28px;
+  }
+  .about-media .badge{
+    background:rgba(255,255,255,0.16);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.35);
+    border-radius:var(--radius-md);
+    padding:20px 22px;
+    color:var(--white);
+  }
+  .about-media .badge .num{
+    font-family:'Fraunces', serif;
+    font-size:36px;
+    font-weight:600;
+  }
+  .about-media .badge .lbl{font-size:13px; opacity:0.9; margin-top:2px;}
+  .about-list{display:flex; flex-direction:column; gap:28px; margin-top:34px;}
+  .about-item{display:flex; gap:18px; align-items:flex-start;}
+  .about-item .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--teal-dark);
+    border:1.5px solid var(--mint-deep);
+    border-radius:50%;
+    width:34px; height:34px;
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .about-item h3{font-size:18px; margin-bottom:6px; color:var(--navy);}
+  .about-item p{font-size:15px; color:var(--gray); line-height:1.6;}
+  @media (max-width:900px){ .about-grid{grid-template-columns:1fr;} }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline-wrap{position:relative; margin-top:20px;}
+  .timeline-arc{
+    display:block;
+    width:100%;
+    height:auto;
+    color:var(--mint-deep);
+  }
+  .timeline-steps{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:16px;
+    margin-top:-46px;
+  }
+  .timeline-step{text-align:center; padding:0 8px;}
+  .timeline-dot{
+    width:16px; height:16px;
+    border-radius:50%;
+    background:var(--white);
+    border:3px solid var(--teal);
+    margin:0 auto 20px;
+    position:relative;
+    transition:transform .3s var(--ease), background .3s var(--ease);
+  }
+  .timeline-step:hover .timeline-dot{background:var(--teal); transform:scale(1.25);}
+  .timeline-step .step-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--teal-dark);
+    letter-spacing:0.08em;
+  }
+  .timeline-step h3{font-size:16.5px; margin:8px 0 8px; color:var(--navy);}
+  .timeline-step p{font-size:13.5px; color:var(--gray); line-height:1.5;}
+  @media (max-width:900px){
+    .timeline-arc{display:none;}
+    .timeline-steps{
+      grid-template-columns:1fr;
+      margin-top:0;
+      gap:0;
+      border-left:2px solid var(--mint-deep);
+      margin-left:8px;
+    }
+    .timeline-step{
+      text-align:left;
+      padding:0 0 34px 28px;
+      position:relative;
+    }
+    .timeline-dot{margin:0; position:absolute; left:-9px; top:2px;}
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:26px;
+  }
+  .review-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:32px;
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .review-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-soft);}
+  .review-quote{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:17px;
+    color:var(--navy);
+    line-height:1.55;
+  }
+  .review-person{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:24px;
+  }
+  .review-avatar{
+    width:42px; height:42px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--white);
+    font-size:15px;
+  }
+  .review-person .name{font-weight:700; font-size:14.5px; color:var(--navy);}
+  .review-person .service{font-size:12.5px; color:var(--gray);}
+  .stars{display:flex; gap:3px; margin-bottom:16px;}
+  .stars svg{width:15px; height:15px; color:var(--teal);}
+  @media (max-width:900px){ .reviews-grid{grid-template-columns:1fr;} }
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--navy); color:var(--white);}
+  .contact .section-head h2{color:var(--white);}
+  .contact .section-head p{color:rgba(255,255,255,0.65);}
+  .contact .eyebrow{color:var(--mint-deep);}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:54px;
+  }
+  .contact-info{display:flex; flex-direction:column; gap:26px;}
+  .info-row{display:flex; gap:16px; align-items:flex-start;}
+  .info-icon{
+    width:44px; height:44px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.08);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .info-icon svg{width:20px; height:20px; color:var(--mint-deep);}
+  .info-row h4{font-size:14px; font-weight:700; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.04em; color:rgba(255,255,255,0.55);}
+  .info-row p, .info-row a{font-size:16px; font-weight:600; color:var(--white);}
+  .contact-social{display:flex; gap:14px; margin-top:8px; flex-wrap:wrap;}
+  .social-btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:13px 22px;
+    border-radius:100px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.16);
+    font-weight:700; font-size:14px;
+    transition:background .3s var(--ease), transform .3s var(--ease);
+  }
+  .social-btn:hover{background:var(--teal); transform:translateY(-3px);}
+  .social-btn svg{width:18px; height:18px;}
+
+  /* ---------- FORM ---------- */
+  .form-card{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    padding:40px;
+    color:var(--navy);
+  }
+  .form-card h3{font-size:24px; margin-bottom:8px;}
+  .form-card > p{color:var(--gray); font-size:14.5px; margin-bottom:28px;}
+  .field{margin-bottom:20px;}
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:8px;
+    color:var(--navy);
+  }
+  .field input, .field select{
+    width:100%;
+    padding:14px 16px;
+    border-radius:var(--radius-sm);
+    border:1.5px solid var(--line);
+    font-family:inherit;
+    font-size:15px;
+    color:var(--navy);
+    background:var(--white);
+    transition:border-color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .field input:focus, .field select:focus{
+    border-color:var(--teal);
+    box-shadow:0 0 0 4px rgba(15,163,152,0.14);
+    outline:none;
+  }
+  .form-note{
+    font-size:12.5px;
+    color:var(--gray-light);
+    margin-top:14px;
+    text-align:center;
+  }
+  .form-success{
+    display:none;
+    background:var(--mint-bg);
+    border:1.5px solid var(--mint-deep);
+    border-radius:var(--radius-md);
+    padding:22px;
+    text-align:center;
+  }
+  .form-success.show{display:block;}
+  .form-success svg{width:30px; height:30px; color:var(--teal-dark); margin:0 auto 10px;}
+  .form-success strong{display:block; font-size:16px; margin-bottom:4px; color:var(--navy);}
+  .form-success span{font-size:13.5px; color:var(--gray);}
+  @media (max-width:900px){
+    .contact-grid{grid-template-columns:1fr;}
+    .form-card{padding:28px;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--navy);
+    border-top:1px solid rgba(255,255,255,0.1);
+    padding:28px 0;
+  }
+  .footer-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .footer-row p{font-size:13px; color:rgba(255,255,255,0.5);}
+  .footer-row .logo{color:var(--white); font-size:16px;}
+
+  /* reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s var(--ease), transform .7s var(--ease);
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="logo"><span class="dot"></span>OrthoImplant</a>
+    <div class="nav-links">
+      <a href="#services">Услуги</a>
+      <a href="#about">О клинике</a>
+      <a href="#prices">Цены</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contact">Контакты</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">Контакты</a>
+      <a href="#booking" class="btn btn-primary">Записаться</a>
+      <button class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Услуги</a>
+    <a href="#about">О клинике</a>
+    <a href="#prices">Цены</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#contact">Контакты</a>
+    <a href="#booking" class="btn btn-primary" style="margin-top:14px; text-align:center;">Записаться на консультацию</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Клиника ортодонтии и эстетики · Тараз</div>
+        <h1>Улыбка,<br>в которую хочется <em>смотреть</em></h1>
+        <p class="hero-sub">Брекеты, виниры и элайнеры по индивидуальному плану — под контролем врачей с опытом от 12 лет и цифровой диагностикой на каждом этапе.</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn btn-primary">Записаться на консультацию</a>
+          <div class="hero-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            Первичный осмотр и план лечения
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div><div class="num">12+</div><div class="lbl">лет практики врачей</div></div>
+          <div><div class="num">2 400+</div><div class="lbl">завершённых случаев</div></div>
+          <div><div class="num">4.9</div><div class="lbl">средняя оценка пациентов</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="arc-ring"></div>
+        <div class="smile-card">
+          <svg viewBox="0 0 200 90" fill="none">
+            <path d="M8 20 Q100 90 192 20" stroke="#0fa398" stroke-width="4" stroke-linecap="round"/>
+            <g stroke="#16283a" stroke-width="2.4" stroke-linecap="round">
+              <path d="M30 26 Q34 44 40 46"/>
+              <path d="M55 34 Q58 52 64 54"/>
+              <path d="M82 39 Q84 56 90 58"/>
+              <path d="M110 39 Q112 56 118 58"/>
+              <path d="M137 34 Q140 52 146 54"/>
+              <path d="M162 26 Q166 44 172 46"/>
+            </g>
+          </svg>
+        </div>
+        <div class="float-chip chip-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+          4.9 рейтинг
+        </div>
+        <div class="float-chip chip-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          Приём за 48 ч
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Услуги</div>
+        <h2>Три пути к ровной и здоровой улыбке</h2>
+        <p>Подбираем метод исправления прикуса и эстетики зубов под ваш образ жизни, бюджет и клиническую картину.</p>
+      </div>
+      <div class="services-grid">
+
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9c0-3 2-5 4-5s2 2 4 2 2-2 4-2 4 2 4 5c0 5-2 6-2 10 0 2-1 3-2 3s-2-2-2-5-1-3-2-3-2 0-2 3-1 5-2 5-2-1-2-3c0-4-2-5-2-10z"/><circle cx="9" cy="10" r=".6" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".6" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h3>Брекеты</h3>
+          <p>Металлические, керамические и лингвальные системы для сложных случаев прикуса — с ежемесячным контролем и точным расчётом силы натяжения.</p>
+          <span class="service-tag">от 6 до 24 месяцев →</span>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 4h5l1 4 1-4h5l-1 9c-1 5-3 7-5 7h-1c-2 0-4-2-5-7L6 4z"/><path d="M12 8v10"/></svg>
+          </div>
+          <h3>Виниры</h3>
+          <p>Керамические и композитные накладки, которые скрывают сколы, потемнение и щели между зубами — за 2 визита, без обточки под общий наркоз.</p>
+          <span class="service-tag">результат за 2 визита →</span>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="7" width="16" height="11" rx="5"/><path d="M8 12h8"/></svg>
+          </div>
+          <h3>Элайнеры</h3>
+          <p>Прозрачные каппы по 3D-сканированию челюсти — незаметно выравнивают зубы без металла, снимаются на время еды и чистки.</p>
+          <span class="service-tag">незаметно для окружающих →</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="wrap about-grid">
+      <div class="about-media reveal">
+        <div class="badge">
+          <div class="num">98%</div>
+          <div class="lbl">пациентов довольны результатом лечения</div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">О клинике</div>
+        <h2>Почему пациенты выбирают OrthoImplant</h2>
+        <div class="about-list">
+          <div class="about-item reveal">
+            <div class="num">01</div>
+            <div>
+              <h3>Опытная команда врачей</h3>
+              <p>Ортодонты и ортопеды со средним стажем 12 лет, регулярно проходят обучение по актуальным протоколам лечения.</p>
+            </div>
+          </div>
+          <div class="about-item reveal">
+            <div class="num">02</div>
+            <div>
+              <h3>Современное оборудование</h3>
+              <p>3D-сканер полости рта, цифровая диагностика прикуса и компьютерное моделирование улыбки до начала лечения.</p>
+            </div>
+          </div>
+          <div class="about-item reveal">
+            <div class="num">03</div>
+            <div>
+              <h3>Индивидуальный подход</h3>
+              <p>Каждый план лечения собирается под конкретный случай — с прозрачным расчётом сроков и стоимости на старте.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="prices">
+    <div class="wrap">
+      <div class="section-head center reveal" style="margin-bottom:20px;">
+        <div class="eyebrow">Этапы лечения</div>
+        <h2>Как проходит путь к новой улыбке</h2>
+        <p>Прозрачный процесс от первой встречи до поддерживающего наблюдения — вы заранее знаете, что будет на каждом шаге.</p>
+      </div>
+      <div class="timeline-wrap reveal">
+        <svg class="timeline-arc" viewBox="0 0 1000 90" preserveAspectRatio="none">
+          <path d="M20 20 Q 500 110 980 20" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="1 10" stroke-linecap="round"/>
+        </svg>
+        <div class="timeline-steps">
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="step-num">01</div>
+            <h3>Консультация</h3>
+            <p>Осмотр, беседа о целях и первичные рекомендации по методу лечения.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="step-num">02</div>
+            <h3>Диагностика</h3>
+            <p>3D-сканирование, снимки и анализ прикуса для точной клинической картины.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="step-num">03</div>
+            <h3>План лечения</h3>
+            <p>Расчёт сроков, этапов и стоимости — согласовываем всё до старта.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="step-num">04</div>
+            <h3>Установка</h3>
+            <p>Установка брекетов, виниров или передача первого набора элайнеров.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="step-num">05</div>
+            <h3>Сопровождение</h3>
+            <p>Регулярные визиты, контроль прогресса и поддержка после лечения.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" style="background:var(--mint-bg);">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <div class="eyebrow">Отзывы</div>
+        <h2>Что говорят наши пациенты</h2>
+      </div>
+      <div class="reviews-grid">
+
+        <div class="review-card reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+          </div>
+          <p class="review-quote">«Носила элайнеры 9 месяцев — врач заранее показал, как будет выглядеть результат. Всё совпало почти день в день».</p>
+          <div class="review-person">
+            <div class="review-avatar" style="background:var(--teal);">А</div>
+            <div>
+              <div class="name">Айгерим Т.</div>
+              <div class="service">Лечение элайнерами</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+          </div>
+          <p class="review-quote">«Ставил брекеты в 27 лет, переживал, что будет больно и долго. Врачи объяснили каждый шаг, боль была минимальной».</p>
+          <div class="review-person">
+            <div class="review-avatar" style="background:var(--blue);">Д</div>
+            <div>
+              <div class="name">Данияр С.</div>
+              <div class="service">Металлические брекеты</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 16.8 5.5 21l2-7.8L2 9h7z"/></svg>
+          </div>
+          <p class="review-quote">«Ставила виниры на два передних зуба после скола. За два визита получила результат, который выглядит абсолютно естественно».</p>
+          <div class="review-person">
+            <div class="review-avatar" style="background:#7a8ca8;">Е</div>
+            <div>
+              <div class="name">Елена П.</div>
+              <div class="service">Керамические виниры</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT + FORM -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Контакты</div>
+        <h2>Запишитесь на консультацию</h2>
+        <p>Ответим в течение рабочего дня и подберём удобное время приёма.</p>
+      </div>
+      <div class="contact-grid">
+
+        <div class="contact-info">
+          <div class="info-row reveal">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+            <div>
+              <h4>Адрес</h4>
+              <p>г. Тараз, ул. Толе би, 91</p>
+            </div>
+          </div>
+          <div class="info-row reveal">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .6 3a2 2 0 01-.5 2.1L8 10a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c1 .3 2 .5 3 .6a2 2 0 011.7 2z"/></svg></div>
+            <div>
+              <h4>Телефон</h4>
+              <a href="tel:+77000000000">+7 (700) 000-00-00</a>
+            </div>
+          </div>
+          <div class="info-row reveal">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+            <div>
+              <h4>Часы работы</h4>
+              <p>Пн–Сб: 9:00–19:00</p>
+            </div>
+          </div>
+          <div class="contact-social reveal">
+            <a class="social-btn" href="https://wa.me/77000000000" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 003 17.4L2 22l4.7-1.2A11 11 0 1020.5 3.5zM12 20a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.1.1-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.1 1.7 2.6 4.1 3.6.6.2 1 .4 1.4.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1z"/></svg>
+              WhatsApp
+            </a>
+            <a class="social-btn" href="https://instagram.com/orthoimplant" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              Instagram
+            </a>
+          </div>
+        </div>
+
+        <div id="booking">
+          <div class="form-card reveal">
+            <h3>Форма записи</h3>
+            <p>Оставьте контакты — администратор свяжется, чтобы подтвердить время.</p>
+
+            <form id="bookingForm">
+              <div class="field">
+                <label for="name">Имя</label>
+                <input type="text" id="name" name="name" placeholder="Как к вам обращаться" required>
+              </div>
+              <div class="field">
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+              </div>
+              <div class="field">
+                <label for="service">Желаемая услуга</label>
+                <select id="service" name="service" required>
+                  <option value="" disabled selected>Выберите услугу</option>
+                  <option value="Брекеты">Брекеты</option>
+                  <option value="Виниры">Виниры</option>
+                  <option value="Элайнеры">Элайнеры</option>
+                  <option value="Консультация">Просто консультация</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Записаться на консультацию</button>
+              <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+            </form>
+
+            <div class="form-success" id="formSuccess">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              <strong>Заявка отправлена</strong>
+              <span>Мы свяжемся с вами в ближайшее время. Также вы можете написать нам в WhatsApp прямо сейчас.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <a href="#top" class="logo"><span class="dot"></span>OrthoImplant</a>
+    <p>© 2026 OrthoImplant. Клиника ортодонтии и эстетической стоматологии, г. Тараз.</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burgerBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    burgerBtn.setAttribute('aria-expanded', isOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Booking form -> WhatsApp handoff + success message
+  const form = document.getElementById('bookingForm');
+  const success = document.getElementById('formSuccess');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const service = document.getElementById('service').value;
+
+    const text = encodeURIComponent(
+      `Здравствуйте! Хочу записаться на консультацию.\nИмя: ${name}\nТелефон: ${phone}\nУслуга: ${service}`
+    );
+
+    form.style.display = 'none';
+    success.classList.add('show');
+
+    window.open(`https://wa.me/77000000000?text=${text}`, '_blank', 'noopener');
+  });
+</script>
+
+</body>
+</html>
