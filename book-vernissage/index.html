@@ -720,7 +720,7 @@
                 <div class="bg-white/80 p-3.5 rounded-2xl border border-gold-400/40 text-xs space-y-2 shadow-sm">
                     <label class="font-bold text-wine-900 flex items-center gap-1.5">
                         <i class="fa-solid fa-file-csv text-emerald-600 text-sm"></i>
-                        <span>Google Таблица Web App URL:</span>
+                        <span>Google Apps Script Web App URL:</span>
                     </label>
                     <div class="flex gap-2">
                         <input type="url" id="google-sheets-url-input" placeholder="https://script.google.com/macros/s/.../exec" 
@@ -729,6 +729,8 @@
                             Сохранить
                         </button>
                     </div>
+                    <p id="sheets-connect-status" class="text-xs text-gray-600">Для общей базы укажите URL опубликованного Apps Script (/exec). Он сохраняется в этом браузере.</p>
+                    <button type="button" onclick="testGoogleSheetsConnection()" class="text-wine-800 underline font-semibold">Проверить соединение</button>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 text-center">
@@ -794,7 +796,7 @@
         let appState = {
             participants: [],
             adminPass: 'admin123',
-            googleSheetsUrl: 'https://script.google.com/macros/s/AKfycbyAq3zcGDz2M6YZ2AH7WpVWI-zUYI2HhhxtIfluu_IJ0g_BNdWoREX4rsDK8p-HNfuX/exec'
+            googleSheetsUrl: '' // Set the newly deployed Google Apps Script /exec URL
         };
 
         let currentRole = 'participant'; // 'participant' or 'organizer'
@@ -816,6 +818,7 @@
 
             if (viewId === 'results') {
                 refreshAllViews();
+                if (appState.googleSheetsUrl) syncDataFromCloud();
             }
         }
 
@@ -957,92 +960,115 @@
             }
         }
 
-        function completeVoting() {
-            if (!currentVote.recommendation) return;
-
-            const newRecord = {
-                surname: currentUser.surname,
-                firstname: currentUser.firstname,
-                emotion: currentVote.emotion,
-                topics: [...currentVote.topics],
-                recommendation: currentVote.recommendation,
-                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
-
-            // Check duplicate before adding
-            const existingIdx = appState.participants.findIndex(p => p.surname === newRecord.surname && p.firstname === newRecord.firstname);
-            if (existingIdx >= 0) {
-                appState.participants[existingIdx] = newRecord;
-            } else {
-                appState.participants.push(newRecord);
+        function showSaveStatus(message, isError = true) {
+            let elem = document.getElementById('save-status-alert');
+            if (!elem) {
+                elem = document.createElement('div');
+                elem.id = 'save-status-alert';
+                elem.className = 'fixed bottom-4 left-4 right-4 max-w-lg mx-auto z-[100] px-5 py-4 rounded-2xl shadow-2xl border text-sm font-semibold';
+                document.body.appendChild(elem);
             }
+            elem.textContent = message;
+            elem.style.backgroundColor = isError ? '#FFF1F2' : '#DCFCE7';
+            elem.style.color = isError ? '#881337' : '#14532D';
+            elem.style.borderColor = isError ? '#FB7185' : '#86EFAC';
+            elem.style.display = 'block';
+        }
 
-            saveData();
-            sendToGoogleSheets(newRecord);
+        function readCloudWithJsonp() {
+            return new Promise((resolve, reject) => {
+                const url = appState.googleSheetsUrl;
+                if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/.test(url)) {
+                    reject(new Error('Укажите адрес опубликованного Google Apps Script, заканчивающийся на /exec.'));
+                    return;
+                }
+                const callback = 'vernissageCallback_' + Math.random().toString(36).slice(2);
+                const script = document.createElement('script');
+                let finished = false;
+                function cleanup() {
+                    if (finished) return;
+                    finished = true;
+                    clearTimeout(timer);
+                    delete window[callback];
+                    script.remove();
+                }
+                const timer = setTimeout(() => {cleanup();reject(new Error('Сервер не ответил. Проверьте доступ «Все» и опубликованную версию Apps Script.'));}, 12000);
+                window[callback] = (data) => {cleanup();if (data && data.ok === false) reject(new Error(data.error || 'Ошибка Google Apps Script'));else resolve(data);};
+                script.onerror = () => {cleanup();reject(new Error('Не удалось прочитать Google Таблицу. Проверьте URL приложения и его доступ.'));};
+                const endpoint = new URL(url);
+                endpoint.searchParams.set('action','read');
+                endpoint.searchParams.set('callback', callback);
+                endpoint.searchParams.set('_',Date.now().toString());
+                script.src = endpoint.toString();
+                document.head.appendChild(script);
+            });
+        }
 
-            if (typeof confetti === 'function') {
-                confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
-            }
-
-            navigateTo('final');
+        async function fetchCloudData() {
+            if (!appState.googleSheetsUrl) return [];
+            const data = await readCloudWithJsonp();
+            if (!Array.isArray(data)) throw new Error('Сервер вернул некорректный формат ответов.');
+            appState.participants = data.map(item => ({
+                id: item.id || '', surname: item.surname || '', firstname: item.firstname || '',
+                emotion: item.emotion || '', topics: typeof item.topics === 'string' ?
+                    item.topics.split('; ').filter(Boolean) : (item.topics || []),
+                recommendation: item.recommendation || '', timestamp: item.timestamp || ''
+            }));
+            saveData(false);
+            return appState.participants;
         }
 
         function sendToGoogleSheets(record) {
-            if (!appState.googleSheetsUrl) return;
-            try {
-                const params = new URLSearchParams();
-                params.append('action', 'write');
-                params.append('surname', record.surname);
-                params.append('firstname', record.firstname);
-                params.append('emotion', record.emotion);
-                params.append('topics', Array.isArray(record.topics) ? record.topics.join('; ') : record.topics);
-                params.append('recommendation', record.recommendation);
-
-                fetch(appState.googleSheetsUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: params.toString()
-                }).catch(err => console.log('Spreadsheet submit note:', err));
-            } catch (e) {
-                console.error('Google Sheets submission error:', e);
-            }
+            const params = new URLSearchParams({
+                action: 'write',
+                id: record.id,
+                surname: record.surname,
+                firstname: record.firstname,
+                emotion: record.emotion,
+                topics: record.topics.join('; '),
+                recommendation: record.recommendation
+            });
+            return fetch(appState.googleSheetsUrl, {
+                method: 'POST', mode: 'no-cors',
+                headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                body: params.toString()
+            });
         }
 
-        // Cloud fetch function to get real-time participants from Google Sheets Web App
-        async function fetchCloudData() {
-            if (!appState.googleSheetsUrl) return;
+        async function completeVoting() {
+            if (!currentVote.recommendation) return;
+            const btn = document.getElementById('step3-finish-btn');
+            if (btn && btn.disabled) return;
+            if (!appState.googleSheetsUrl) {
+                showSaveStatus('Google Таблица не подключена. Организатор должен указать адрес опубликованного Apps Script в меню «База данных».');
+                return;
+            }
+            const newRecord = {
+                id: crypto && crypto.randomUUID ? crypto.randomUUID() : 'response_' + Date.now() + '_' + Math.random().toString(36).slice(2),
+                surname: currentUser.surname, firstname: currentUser.firstname,
+                emotion: currentVote.emotion, topics: [...currentVote.topics],
+                recommendation: currentVote.recommendation,
+                timestamp: new Date().toISOString()
+            };
+            if (btn) {btn.disabled = true;btn.classList.add('opacity-50');}
+            showSaveStatus('Сохраняем ответ в Google Таблице и проверяем запись…', false);
             try {
-                const res = await fetch(appState.googleSheetsUrl + '?action=read');
-                if (res.ok) {
-                    const data = await res.json();
-                    if (Array.isArray(data) && data.length > 0) {
-                        // Merge or replace remote data with local state
-                        const cloudParticipants = data.map(item => ({
-                            surname: item.surname || '',
-                            firstname: item.firstname || '',
-                            emotion: item.emotion || '',
-                            topics: typeof item.topics === 'string' ? item.topics.split('; ') : (item.topics || []),
-                            recommendation: item.recommendation || '',
-                            timestamp: item.timestamp || ''
-                        }));
-
-                        // Merge cloud data to prevent overwriting
-                        cloudParticipants.forEach(cp => {
-                            if (!cp.surname && !cp.firstname) return;
-                            const idx = appState.participants.findIndex(p => p.surname === cp.surname && p.firstname === cp.firstname);
-                            if (idx >= 0) {
-                                appState.participants[idx] = cp;
-                            } else {
-                                appState.participants.push(cp);
-                            }
-                        });
-
-                        saveData(false); // save locally without triggering loop
-                    }
+                await sendToGoogleSheets(newRecord);
+                let confirmed = false;
+                for (let i = 0; i < 3; i++) {
+                    await new Promise(resolve => setTimeout(resolve, 900 * (i + 1)));
+                    const all = await fetchCloudData();
+                    if (all.some(p => p.id === newRecord.id)) {confirmed = true;break;}
                 }
+                if (!confirmed) throw new Error('Запись не подтверждена Google Таблицей. Проверьте публикацию Apps Script, доступ и журнал выполнения. Повторная отправка может создать дубликат.');
+                showSaveStatus('Ответ сохранён в Google Таблице!', false);
+                if (typeof confetti === 'function') confetti({particleCount:100,spread:80,origin:{y:0.6}});
+                navigateTo('final');
             } catch (e) {
-                // Ignore silent network errors on polling
+                showSaveStatus('Не удалось подтвердить сохранение: ' + e.message);
+                console.error('Google Sheets save error:',e);
+            } finally {
+                if (btn) {btn.disabled=false;btn.classList.remove('opacity-50');}
             }
         }
 
@@ -1071,9 +1097,7 @@
         }
 
         function syncDataFromCloud() {
-            fetchCloudData().then(() => {
-                refreshAllViews();
-            });
+            fetchCloudData().catch(e => showSaveStatus('Ошибка синхронизации: ' + e.message));
         }
 
         function refreshAllViews() {
@@ -1114,7 +1138,21 @@
             if (input) {
                 appState.googleSheetsUrl = input.value.trim();
                 saveData();
-                alert('URL Google Таблицы сохранен!');
+                showSaveStatus('URL сохранён в этом браузере. Проверьте соединение.', false);
+                testGoogleSheetsConnection();
+            }
+        }
+
+        async function testGoogleSheetsConnection() {
+            const status = document.getElementById('sheets-connect-status');
+            if(status) status.textContent = 'Проверяем подключение…';
+            try {
+                const participants = await fetchCloudData();
+                if(status) status.textContent = 'Соединение работает. Записей в Google Таблице: ' + participants.length;
+                showSaveStatus('Google Таблица подключена. Записей: ' + participants.length, false);
+            } catch(e) {
+                if(status) status.textContent = 'Ошибка: ' + e.message;
+                showSaveStatus(e.message);
             }
         }
 
@@ -1416,11 +1454,12 @@
             initBackgroundEffects();
             refreshAllViews();
 
-            // Background poller for live synchronization across all devices
+            // Read-only periodic refresh; do not overwrite local UI when a save is in progress.
             setInterval(() => {
-                fetchCloudData();
-                refreshAllViews();
-            }, 3000);
+                if (appState.googleSheetsUrl && !document.hidden && !document.getElementById('view-results').classList.contains('hidden')) {
+                    fetchCloudData().catch(error => console.warn('Cloud sync:', error));
+                }
+            }, 15000);
         };
     </script>
 </body>
