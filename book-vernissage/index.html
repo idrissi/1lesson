@@ -796,7 +796,7 @@
         let appState = {
             participants: [],
             adminPass: 'admin123',
-            googleSheetsUrl: '' // Set the newly deployed Google Apps Script /exec URL
+            googleSheetsUrl: 'https://script.google.com/macros/s/AKfycbxpcJBy06N8oO9A2Gx1z9OIXKAnnCRhwyceKnuglWJ1cuxcgVSl2axKHiUNlvYGd--b/exec'
         };
 
         let currentRole = 'participant'; // 'participant' or 'organizer'
@@ -1089,7 +1089,7 @@
                     if (parsed.participants && parsed.participants.length > 0) {
                         appState.participants = parsed.participants;
                     }
-                    if (parsed.googleSheetsUrl) appState.googleSheetsUrl = parsed.googleSheetsUrl;
+                    // Use the shared Apps Script URL configured above, not an outdated URL cached in this browser.
                 }
             } catch (e) {
                 console.error(e);
