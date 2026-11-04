@@ -59,12 +59,16 @@ function doPost(e) {
   if (!surname || !firstname || !emotion || !topics || !recommendation) {
     return json_({ok: false, error: 'missing_required_fields'});
   }
+  const submittedId = String(p.id || '').trim();
+  const recordId = /^[A-Za-z0-9_-]{10,100}$/.test(submittedId) ? submittedId : Utilities.getUuid();
   const lock = LockService.getScriptLock();
   try {
     lock.waitLock(15000);
     const sheet = sheet_();
     const rowCount = sheet.getLastRow();
     if (rowCount > 1) {
+      const existingIds = sheet.getRange(2, 1, rowCount - 1, 1).getDisplayValues();
+      if (existingIds.some(r => r[0] === recordId)) return json_({ok: true, id: recordId, alreadySaved: true});
       const names = sheet.getRange(2, 3, rowCount - 1, 2).getDisplayValues();
       const isDuplicate = names.some(r =>
         String(r[0]).trim().toLocaleLowerCase() === surname.toLocaleLowerCase() &&
@@ -72,7 +76,7 @@ function doPost(e) {
       );
       if (isDuplicate) return json_({ok: false, error: 'duplicate_participant'});
     }
-    const id = Utilities.getUuid();
+    const id = recordId;
     const stamp = Utilities.formatDate(new Date(), 'Asia/Almaty', 'yyyy-MM-dd HH:mm:ss');
     sheet.appendRow([id, stamp, surname, firstname, emotion, topics, recommendation]);
     SpreadsheetApp.flush();
