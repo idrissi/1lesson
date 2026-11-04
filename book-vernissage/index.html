@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КНИЖНЫЙ ВЕРНИСАЖ — Гауһар тас</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            100: '#FFFDF9',
+                            200: '#FAF7F2',
+                            300: '#F4EADF',
+                            400: '#E8D2C0'
+                        },
+                        wine: {
+                            700: '#8B263E',
+                            800: '#6B1D2F',
+                            900: '#4A111F'
+                        },
+                        gold: {
+                            300: '#E6C675',
+                            400: '#D4AF37',
+                            500: '#C5A059',
+                            600: '#A37F33'
+                        },
+                        peach: {
+                            100: '#FFE4E1',
+                            200: '#FAD6C2',
+                            300: '#F5B89F'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                        cormorant: ['"Cormorant Garamond"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF7F2;
+            color: #332226;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Canvas background for animated rose petals & golden sparkles */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Glassmorphism & Gold Effects */
+        .glass-card {
+            background: rgba(255, 253, 249, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 12px 32px rgba(107, 29, 47, 0.08);
+        }
+
+        .gold-border-glow {
+            border: 2px solid #D4AF37 !important;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+        }
+
+        .wine-gradient-btn {
+            background: linear-gradient(135deg, #8B263E 0%, #6B1D2F 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .wine-gradient-btn:hover {
+            background: linear-gradient(135deg, #A02D49 0%, #7C2237 100%);
+            box-shadow: 0 8px 24px rgba(107, 29, 47, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .gold-gradient-btn {
+            background: linear-gradient(135deg, #D4AF37 0%, #C5A059 100%);
+            color: #4A111F;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gold-gradient-btn:hover {
+            background: linear-gradient(135deg, #E6C675 0%, #D4AF37 100%);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Interactive Card Selection Styling */
+        .option-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .option-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(107, 29, 47, 0.12);
+        }
+
+        .option-card.selected {
+            background: #FFFDF9;
+            border-color: #8B263E !important;
+            box-shadow: 0 0 0 3px rgba(139, 38, 62, 0.25), 0 8px 22px rgba(107, 29, 47, 0.18);
+        }
+
+        /* Checkmark indicator styling for all selectable cards */
+        .card-check-badge, .checkbox-indicator {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .option-card.selected .card-check-badge,
+        .option-card.selected .checkbox-indicator {
+            background-color: #8B263E !important;
+            border-color: #8B263E !important;
+            color: #ffffff !important;
+        }
+
+        .option-card.selected .card-check-badge i,
+        .option-card.selected .checkbox-indicator i {
+            opacity: 1 !important;
+        }
+
+        /* Open Book Background Watermark */
+        .book-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75vw;
+            max-width: 950px;
+            opacity: 0.045;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B263E;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative selection:bg-wine-700 selection:text-white">
+
+    <!-- Canvas for Floating Rose Petals & Golden Sparkles -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Background Silhouette of an Open Book -->
+    <svg class="book-watermark" viewBox="0 0 24 24" fill="none" stroke="#6B1D2F" stroke-width="0.8">
+        <path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+    </svg>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="relative z-20 w-full px-4 py-3 bg-cream-100/90 backdrop-blur-md border-b border-gold-400/30 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+                <div class="w-10 h-10 rounded-full bg-wine-800 text-gold-400 flex items-center justify-center font-serif text-xl shadow">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif font-bold text-wine-900 tracking-wide leading-tight text-lg md:text-xl">
+                        КНИЖНЫЙ ВЕРНИСАЖ
+                    </h1>
+                    <p class="text-xs text-wine-800 font-medium tracking-wider">«ЧИТАЕМ ВМЕСТЕ — РАЗМЫШЛЯЕМ ВМЕСТЕ!»</p>
+                </div>
+            </div>
+
+            <!-- Active User Display Tag -->
+            <div id="user-header-tag" class="hidden items-center bg-peach-100/90 px-4 py-1.5 rounded-full border border-gold-400/40 text-wine-900 text-xs md:text-sm font-semibold">
+                <i class="fa-solid fa-user-pen text-wine-700 mr-2"></i>
+                <span id="active-user-name">—</span>
+            </div>
+
+            <!-- Navigation Actions -->
+            <div class="flex items-center space-x-2 md:space-x-3">
+                <button onclick="switchRole('participant')" class="px-3.5 py-1.5 rounded-lg border border-wine-800 text-wine-800 hover:bg-wine-800 hover:text-white transition text-xs md:text-sm font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Режим «Участник»</span>
+                </button>
+                <button onclick="switchRole('organizer')" class="px-3.5 py-1.5 rounded-lg bg-wine-700 hover:bg-wine-800 text-white transition text-xs md:text-sm font-semibold flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-desktop"></i>
+                    <span>Режим «Организатор»</span>
+                </button>
+                <button onclick="openAdminModal()" class="px-3.5 py-1.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-wine-900 transition text-xs md:text-sm font-semibold flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-database"></i>
+                    <span>База данных</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="relative z-10 flex-grow max-w-6xl w-full mx-auto p-4 md:p-8 flex items-center justify-center">
+
+        <!-- 1. LANDING HERO PAGE -->
+        <section id="view-home" class="w-full text-center py-6 md:py-10">
+            <div class="glass-card rounded-3xl p-6 md:p-12 max-w-4xl mx-auto shadow-xl relative overflow-hidden">
+                <div class="flex justify-center mb-4 text-gold-500 text-2xl">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+
+                <p class="text-wine-700 uppercase tracking-widest text-xs md:text-sm font-bold mb-2">
+                    Литературное событие &bull; Читательская рефлексия
+                </p>
+
+                <h1 class="font-serif text-3xl md:text-5xl font-bold text-wine-900 mb-2 leading-tight">
+                    КНИЖНЫЙ ВЕРНИСАЖ
+                </h1>
+                
+                <h2 class="font-serif italic text-xl md:text-2xl text-gold-600 font-semibold mb-6">
+                    Повесть Дулата Исабекова «Гауһар тас»
+                </h2>
+
+                <!-- Book Cover Visual -->
+                <div class="my-6 flex justify-center">
+                    <div class="relative group">
+                        <div class="w-48 h-68 md:w-56 md:h-80 bg-gradient-to-tr from-wine-900 via-wine-800 to-wine-700 rounded-r-xl rounded-l-sm shadow-2xl p-5 flex flex-col justify-between text-left border-r-4 border-gold-400 relative transform transition group-hover:scale-105 duration-300">
+                            <div class="absolute top-0 left-0 bottom-0 w-3 bg-wine-900/60 rounded-l-sm border-r border-gold-400/30"></div>
+                            <div class="pl-3">
+                                <span class="text-[10px] text-gold-300 tracking-widest uppercase block font-mono">Классика</span>
+                                <h3 class="font-serif text-gold-400 font-bold text-2xl leading-tight mt-1">Гауһар тас</h3>
+                                <p class="text-xs text-peach-200 mt-1 italic">Дулат Исабеков</p>
+                            </div>
+                            <div class="pl-3 text-center my-auto">
+                                <i class="fa-solid fa-gem text-5xl text-gold-400/90 animate-pulse"></i>
+                            </div>
+                            <div class="pl-3 text-[10px] text-peach-100/80 border-t border-gold-400/30 pt-2 flex justify-between items-center">
+                                <span>Отзыв читателя</span>
+                                <i class="fa-solid fa-bookmark text-gold-400"></i>
+                            </div>
+                        </div>
+                        <div class="w-44 h-3 bg-black/20 rounded-full blur-md mx-auto mt-2"></div>
+                    </div>
+                </div>
+
+                <p class="font-cormorant italic text-lg md:text-2xl text-wine-900 max-w-2xl mx-auto my-6 leading-relaxed">
+                    «Каждая прочитанная книга оставляет след в душе. Поделитесь своими впечатлениями!»
+                </p>
+
+                <div class="pt-2">
+                    <button onclick="startJourney()" class="wine-gradient-btn text-white font-bold text-base md:text-lg px-8 py-4 rounded-full shadow-lg border border-gold-400/40 flex items-center justify-center gap-3 mx-auto">
+                        <span>НАЧАТЬ ЛИТЕРАТУРНОЕ ПУТЕШЕСТВИЕ</span>
+                        <i class="fa-solid fa-arrow-right text-gold-400"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. REGISTRATION VIEW -->
+        <section id="view-register" class="hidden w-full max-w-2xl mx-auto py-6">
+            <div class="glass-card rounded-3xl p-6 md:p-10 shadow-xl border-t-4 border-gold-400">
+                <div class="text-center mb-8">
+                    <div class="w-12 h-12 bg-peach-200 text-wine-800 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+                    <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900">
+                        ДОБРО ПОЖАЛОВАТЬ В КНИЖНЫЙ ВЕРНИСАЖ!
+                    </h2>
+                    <p class="text-gray-600 text-sm md:text-base mt-2">
+                        Прежде чем поделиться своими впечатлениями, представьтесь, пожалуйста.
+                    </p>
+                </div>
+
+                <form id="registration-form" onsubmit="submitRegistration(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-wine-900 mb-1.5" for="reg-surname">
+                            Фамилия <span class="text-wine-700">*</span>
+                        </label>
+                        <input type="text" id="reg-surname" required placeholder="Введите вашу фамилию" 
+                            class="w-full px-4 py-3 rounded-xl border border-gold-400/50 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-wine-700 text-wine-900 font-medium">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-wine-900 mb-1.5" for="reg-firstname">
+                            Имя <span class="text-wine-700">*</span>
+                        </label>
+                        <input type="text" id="reg-firstname" required placeholder="Введите ваше имя" 
+                            class="w-full px-4 py-3 rounded-xl border border-gold-400/50 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-wine-700 text-wine-900 font-medium">
+                    </div>
+
+                    <div id="reg-error" class="hidden text-sm text-wine-800 bg-peach-100 p-3 rounded-xl border border-wine-700/30 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-exclamation text-wine-700"></i>
+                        <span id="reg-error-msg">Заполните обязательные поля.</span>
+                    </div>
+
+                    <button type="submit" class="w-full wine-gradient-btn text-white font-bold py-3.5 rounded-xl text-base shadow-md mt-4 flex items-center justify-center gap-2">
+                        <span>ПЕРЕЙТИ К ОПРОСУ</span>
+                        <i class="fa-solid fa-circle-chevron-right text-gold-400"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 3. STEP 1: EMOTIONS -->
+        <section id="view-step1" class="hidden w-full max-w-3xl mx-auto py-4">
+            <div class="glass-card rounded-3xl p-6 md:p-10 shadow-xl">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gold-400/20">
+                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">Этап 1 из 3</span>
+                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Эмоции и впечатления</span>
+                </div>
+
+                <div class="text-center mb-8">
+                    <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900 mb-3">
+                        ОДНИМ СЛОВОМ О ПОВЕСТИ…
+                    </h2>
+                    <p class="text-gray-700 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
+                        Какое слово лучше всего передаёт ваши эмоции и впечатления после прочтения повести Дулата Исабекова «Гауһар тас»?
+                    </p>
+                </div>
+
+                <!-- 6 Emotion Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                    <div onclick="selectEmotion('Радость', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                        <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                        <span class="text-4xl">❤️</span>
+                        <span class="font-bold text-wine-900 text-base">Радость</span>
+                    </div>
+                    <div onclick="selectEmotion('Грусть', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                        <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                        <span class="text-4xl">💧</span>
+                        <span class="font-bold text-wine-900 text-base">Грусть</span>
+                    </div>
+                    <div onclick="selectEmotion('Любовь', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                        <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                        <span class="text-4xl">🌹</span>
+                        <span class="font-bold text-wine-900 text-base">Любовь</span>
+                    </div>
+                    <div onclick="selectEmotion('Преданность', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                        <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                        <span class="text-4xl">🤝</span>
+                        <span class="font-bold text-wine-900 text-base">Преданность</span>
+                    </div>
+                    <div onclick="selectEmotion('Семья', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                        <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                        <span class="text-4xl">🏡</span>
+                        <span class="font-bold text-wine-900 text-base">Семья</span>
+                    </div>
+                    <div onclick="selectEmotion('Терпение', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                        <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                        <span class="text-4xl">🌿</span>
+                        <span class="font-bold text-wine-900 text-base">Терпение</span>
+                    </div>
+                </div>
+
+                <!-- Toast Notification -->
+                <div id="step1-feedback" class="hidden mb-6 p-3 bg-emerald-100 border border-emerald-400 text-emerald-800 rounded-xl text-center font-semibold text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                    <span>Ваш голос принят!</span>
+                </div>
+
+                <div class="flex justify-end">
+                    <button id="step1-next-btn" disabled onclick="goToStep2()" class="wine-gradient-btn opacity-50 cursor-not-allowed text-white font-bold px-8 py-3 rounded-xl text-base shadow flex items-center gap-2">
+                        <span>ДАЛЕЕ</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. STEP 2: REFLECTIONS -->
+        <section id="view-step2" class="hidden w-full max-w-3xl mx-auto py-4">
+            <div class="glass-card rounded-3xl p-6 md:p-10 shadow-xl">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gold-400/20">
+                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">Этап 2 из 3</span>
+                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Темы для размышлений</span>
+                </div>
+
+                <div class="text-center mb-8">
+                    <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900 mb-2">
+                        ЧТО ВАС ЗАИНТЕРЕСОВАЛО В ПОВЕСТИ?
+                    </h2>
+                    <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+                        Какие темы произведения нашли отклик в вашей душе? <br><span class="text-xs text-wine-700 font-semibold">(Можно выбрать несколько вариантов)</span>
+                    </p>
+                </div>
+
+                <!-- Topics list -->
+                <div class="space-y-3 mb-8">
+                    <div onclick="toggleTopic('Семейные отношения и взаимоотношения между близкими', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">👨‍👩‍👧</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Семейные отношения и взаимоотношения между близкими.</span>
+                        </div>
+                        <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleTopic('Противоречия между поколениями', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🔄</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Противоречия между поколениями.</span>
+                        </div>
+                        <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleTopic('Вопросы любви, уважения и взаимоотношений', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">❤️</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Вопросы любви, уважения и взаимоотношений.</span>
+                        </div>
+                        <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleTopic('Роль женщины в семье', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🌷</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Роль женщины в семье.</span>
+                        </div>
+                        <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleTopic('Авторский взгляд на человеческие взаимоотношения', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">📖</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Авторский взгляд на человеческие взаимоотношения.</span>
+                        </div>
+                        <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleTopic('Жизненные ситуации, в которых раскрываются человеческие отношения', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">💭</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Жизненные ситуации, в которых раскрываются человеческие отношения.</span>
+                        </div>
+                        <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="navigateTo('step1')" class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 text-sm font-semibold">
+                        Назад
+                    </button>
+                    <button id="step2-next-btn" disabled onclick="goToStep3()" class="wine-gradient-btn opacity-50 cursor-not-allowed text-white font-bold px-8 py-3 rounded-xl text-base shadow flex items-center gap-2">
+                        <span>ДАЛЕЕ</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. STEP 3: RECOMMENDATION -->
+        <section id="view-step3" class="hidden w-full max-w-3xl mx-auto py-4">
+            <div class="glass-card rounded-3xl p-6 md:p-10 shadow-xl">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gold-400/20">
+                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">Этап 3 из 3</span>
+                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Рекомендация</span>
+                </div>
+
+                <div class="text-center mb-8">
+                    <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900 mb-2">
+                        А ВЫ ПОРЕКОМЕНДУЕТЕ ЭТУ ПОВЕСТЬ ДРУГИМ ЧИТАТЕЛЯМ?
+                    </h2>
+                </div>
+
+                <div class="space-y-4 mb-8">
+                    <div onclick="selectRecommendation('ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ!', this)" class="option-card p-6 rounded-2xl bg-white/90 border-2 border-gold-400/40 space-y-2 relative">
+                        <div class="card-check-badge absolute top-4 right-4 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                        <div class="flex items-center space-x-3 pr-8">
+                            <span class="text-3xl">📚</span>
+                            <h3 class="font-bold text-wine-900 text-lg md:text-xl">ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ!</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm md:text-base pl-11">
+                            «Повесть заставляет задуматься о жизни, семейных ценностях и человеческих отношениях».
+                        </p>
+                    </div>
+
+                    <div onclick="selectRecommendation('ДЛЯ ЛЮБИТЕЛЕЙ ДРАМЫ', this)" class="option-card p-6 rounded-2xl bg-white/90 border-2 border-gold-400/40 space-y-2 relative">
+                        <div class="card-check-badge absolute top-4 right-4 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
+                            <i class="fa-solid fa-check text-xs opacity-0"></i>
+                        </div>
+                        <div class="flex items-center space-x-3 pr-8">
+                            <span class="text-3xl">🎭</span>
+                            <h3 class="font-bold text-wine-900 text-lg md:text-xl">ДЛЯ ЛЮБИТЕЛЕЙ ДРАМЫ</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm md:text-base pl-11">
+                            «Произведение для тех, кто ценит психологическую прозу, глубокие переживания и непростые человеческие судьбы».
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="navigateTo('step2')" class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 text-sm font-semibold">
+                        Назад
+                    </button>
+                    <button id="step3-finish-btn" disabled onclick="completeVoting()" class="gold-gradient-btn opacity-50 cursor-not-allowed font-bold px-8 py-3.5 rounded-xl text-base shadow flex items-center gap-2">
+                        <span>ЗАВЕРШИТЬ И ПОДЕЛИТЬСЯ ВПЕЧАТЛЕНИЯМИ</span>
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. FINAL SCREEN -->
+        <section id="view-final" class="hidden w-full max-w-3xl mx-auto text-center py-6">
+            <div class="glass-card rounded-3xl p-8 md:p-12 shadow-2xl relative border-2 border-gold-400">
+                <div class="text-gold-500 text-4xl mb-4 animate-bounce">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900 mb-2">
+                    Спасибо за участие!
+                </h2>
+                <p class="text-wine-800 font-semibold mb-6">
+                    Ваше мнение стало частью нашего Книжного вернисажа!
+                </p>
+
+                <div class="p-6 bg-cream-300/50 rounded-2xl border border-gold-400/30 my-6">
+                    <p class="font-cormorant italic text-xl md:text-2xl text-wine-900 leading-relaxed">
+                        «Книга заканчивается последней страницей, но мысли и чувства, которые она пробуждает, остаются с нами».
+                    </p>
+                </div>
+
+                <p class="font-serif font-bold text-wine-800 text-base md:text-xl tracking-wide uppercase my-6 leading-snug">
+                    ЧИТАЕМ ВМЕСТЕ! РАЗМЫШЛЯЕМ ВМЕСТЕ! <br>ОТКРЫВАЕМ НОВЫЕ СМЫСЛЫ ВМЕСТЕ!
+                </p>
+
+                <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="navigateTo('results')" class="wine-gradient-btn text-white font-bold px-8 py-3.5 rounded-xl text-base shadow flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>ПАНЕЛЬ РЕЗУЛЬТАТОВ</span>
+                    </button>
+                    <button onclick="navigateTo('home')" class="px-8 py-3.5 rounded-xl border-2 border-wine-800 text-wine-800 hover:bg-wine-800 hover:text-white transition font-bold text-base flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-house"></i>
+                        <span>ВЕРНУТЬСЯ НА ГЛАВНАЮ</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. RESULTS DASHBOARD -->
+        <section id="view-results" class="hidden w-full py-4">
+            <div class="space-y-6">
+                <div class="glass-card rounded-3xl p-6 md:p-8 text-center border-b-4 border-gold-400">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-wine-900">
+                        КНИЖНЫЙ ВЕРНИСАЖ: ГОЛОС ЧИТАТЕЛЕЙ
+                    </h2>
+                    <p class="text-gray-600 text-sm mt-1">Интерактивная панель читательской рефлексии</p>
+
+                    <!-- Total Participants Counter -->
+                    <div class="flex flex-wrap justify-center items-center gap-4 mt-4">
+                        <div class="inline-flex items-center space-x-3 bg-wine-800 text-gold-300 px-6 py-2.5 rounded-full shadow-lg border border-gold-400/50">
+                            <i class="fa-solid fa-users text-lg"></i>
+                            <span class="font-serif text-lg font-bold tracking-wider">ВСЕГО УЧАСТНИКОВ:</span>
+                            <span id="results-total-count" class="font-mono text-2xl font-bold text-white">0</span>
+                        </div>
+
+                        <!-- Cloud Sync Indicator Button -->
+                        <button onclick="syncDataFromCloud()" class="px-4 py-2 bg-cream-200 hover:bg-peach-100 border border-gold-400/60 rounded-full text-xs font-bold text-wine-900 flex items-center gap-2 transition shadow-sm">
+                            <i class="fa-solid fa-rotate text-gold-600"></i>
+                            <span>Обновить результаты</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3 Visual Dashboard Blocks -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Block 1: Emotions Pie Chart -->
+                    <div class="glass-card rounded-3xl p-6 shadow-md">
+                        <h3 class="font-serif font-bold text-wine-900 text-lg mb-2 flex items-center gap-2 border-b border-gold-400/30 pb-2">
+                            <i class="fa-solid fa-heart text-wine-700"></i>
+                            Блок 1. Эмоции читателей
+                        </h3>
+                        <div class="h-64 relative">
+                            <canvas id="chart-emotions"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Block 3: Recommendations Pie Chart -->
+                    <div class="glass-card rounded-3xl p-6 shadow-md">
+                        <h3 class="font-serif font-bold text-wine-900 text-lg mb-2 flex items-center gap-2 border-b border-gold-400/30 pb-2">
+                            <i class="fa-solid fa-thumbs-up text-wine-700"></i>
+                            Блок 3. Рекомендации читателей
+                        </h3>
+                        <div class="h-64 relative">
+                            <canvas id="chart-recommendations"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 2: Reflections Horizontal Bar Chart -->
+                <div class="glass-card rounded-3xl p-6 shadow-md">
+                    <h3 class="font-serif font-bold text-wine-900 text-lg mb-2 flex items-center gap-2 border-b border-gold-400/30 pb-2">
+                        <i class="fa-solid fa-lightbulb text-wine-700"></i>
+                        Блок 2. Темы для размышления (%)
+                    </h3>
+                    <div class="h-72 relative">
+                        <canvas id="chart-topics"></canvas>
+                    </div>
+                </div>
+
+                <!-- Block 4: Participants Journal Table -->
+                <div class="glass-card rounded-3xl p-6 shadow-md">
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-2 border-b border-gold-400/30">
+                        <h3 class="font-serif font-bold text-wine-900 text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-table-list text-wine-700"></i>
+                            Блок 4. Общая итоговая база ответов участников
+                        </h3>
+                        <span class="text-xs bg-wine-800 text-gold-300 px-3 py-1 rounded-full font-semibold">
+                            Обновление в реальном времени
+                        </span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-wine-900">
+                            <thead class="bg-peach-100 uppercase text-xs text-wine-800 font-bold border-b border-gold-400/30">
+                                <tr>
+                                    <th class="py-3 px-3">№</th>
+                                    <th class="py-3 px-3">Участник</th>
+                                    <th class="py-3 px-3">Эмоция</th>
+                                    <th class="py-3 px-3">Выбранные темы</th>
+                                    <th class="py-3 px-3">Рекомендация</th>
+                                    <th class="py-3 px-3">Время</th>
+                                </tr>
+                            </thead>
+                            <tbody id="journal-table-body" class="divide-y divide-gray-200">
+                                <tr>
+                                    <td colspan="6" class="py-4 text-center text-gray-500 italic">Пока нет зарегистрированных участников</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ADMIN MODAL -->
+    <div id="admin-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-card bg-cream-100 rounded-3xl max-w-2xl w-full p-6 md:p-8 shadow-2xl relative border-2 border-gold-400">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-gray-500 hover:text-wine-900 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Auth Section -->
+            <div id="admin-auth-section" class="text-center space-y-4">
+                <div class="w-12 h-12 bg-wine-800 text-gold-400 rounded-full flex items-center justify-center mx-auto text-xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-wine-900">Режим организатора</h3>
+                <p class="text-sm text-gray-600">Введите пароль администратора (по умолчанию: admin123)</p>
+
+                <div class="max-w-xs mx-auto">
+                    <input type="password" id="admin-pass-input" placeholder="Пароль" 
+                        class="w-full px-4 py-2.5 rounded-xl border border-gold-400/60 bg-white text-center focus:outline-none focus:ring-2 focus:ring-wine-800">
+                    <p id="admin-auth-error" class="hidden text-xs text-red-600 font-bold mt-2">Неверный пароль!</p>
+                </div>
+
+                <button onclick="verifyAdminPassword()" class="wine-gradient-btn text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow">
+                    Войти
+                </button>
+            </div>
+
+            <!-- Admin Control Section -->
+            <div id="admin-control-section" class="hidden space-y-6">
+                <div class="flex items-center justify-between border-b border-gold-400/30 pb-3">
+                    <h3 class="font-serif text-xl font-bold text-wine-900">Панель организатора</h3>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">Сессия активна</span>
+                </div>
+
+                <!-- Google Sheets Web App URL Setting -->
+                <div class="bg-white/80 p-3.5 rounded-2xl border border-gold-400/40 text-xs space-y-2 shadow-sm">
+                    <label class="font-bold text-wine-900 flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-csv text-emerald-600 text-sm"></i>
+                        <span>Google Таблица Web App URL:</span>
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="url" id="google-sheets-url-input" placeholder="https://script.google.com/macros/s/.../exec" 
+                            class="w-full px-3 py-2 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-wine-800 font-mono text-[11px]">
+                        <button onclick="saveGoogleSheetsUrl()" class="wine-gradient-btn text-white px-4 py-2 rounded-xl font-bold transition whitespace-nowrap">
+                            Сохранить
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div class="p-4 bg-white/80 rounded-xl border border-gold-400/30 shadow-sm">
+                        <span class="text-xs text-gray-500 uppercase block font-semibold">Всего участников</span>
+                        <span id="admin-total-participants" class="font-mono text-3xl font-bold text-wine-800">0</span>
+                    </div>
+                    <div class="p-4 bg-white/80 rounded-xl border border-gold-400/30 shadow-sm">
+                        <span class="text-xs text-gray-500 uppercase block font-semibold">Получено ответов</span>
+                        <span id="admin-total-votes" class="font-mono text-3xl font-bold text-wine-800">0</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Participants Log for Analysis -->
+                <div class="bg-white/90 rounded-2xl p-4 border border-gold-400/30 max-h-60 overflow-y-auto shadow-inner">
+                    <h4 class="font-serif font-bold text-wine-900 text-sm mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-wine-700"></i>
+                        Полный журнал ответов для анализа
+                    </h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-wine-900">
+                            <thead class="bg-peach-100 uppercase text-[10px] text-wine-800 font-bold border-b border-gold-400/30 sticky top-0 bg-peach-100">
+                                <tr>
+                                    <th class="py-2 px-2">№</th>
+                                    <th class="py-2 px-2">Участник</th>
+                                    <th class="py-2 px-2">Эмоция</th>
+                                    <th class="py-2 px-2">Выбранные темы</th>
+                                    <th class="py-2 px-2">Рекомендация</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-participants-table-body" class="divide-y divide-gray-200">
+                                <tr>
+                                    <td colspan="5" class="py-3 text-center text-gray-500 italic">Нет зарегистрированных участников</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <button onclick="exportToCSV()" class="w-full gold-gradient-btn font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span>Выгрузить результаты в Excel (CSV)</span>
+                    </button>
+
+                    <button onclick="confirmResetResults()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition shadow">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>Сбросить результаты перед новым туром</span>
+                    </button>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="closeAdminModal()" class="text-xs text-gray-500 hover:underline font-medium">Закрыть окно</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        const APP_STORAGE_KEY = 'knizhny_vernissage_data_v1';
+        
+        let appState = {
+            participants: [],
+            adminPass: 'admin123',
+            googleSheetsUrl: 'https://script.google.com/macros/s/AKfycbyAq3zcGDz2M6YZ2AH7WpVWI-zUYI2HhhxtIfluu_IJ0g_BNdWoREX4rsDK8p-HNfuX/exec'
+        };
+
+        let currentRole = 'participant'; // 'participant' or 'organizer'
+        let currentUser = { surname: '', firstname: '' };
+        let currentVote = { emotion: '', topics: [], recommendation: '' };
+        let charts = {};
+
+        // Navigation Controller
+        function navigateTo(viewId) {
+            const views = ['view-home', 'view-register', 'view-step1', 'view-step2', 'view-step3', 'view-final', 'view-results'];
+            views.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+            const activeView = document.getElementById(`view-${viewId}`);
+            if (activeView) {
+                activeView.classList.remove('hidden');
+            }
+
+            if (viewId === 'results') {
+                refreshAllViews();
+            }
+        }
+
+        function switchRole(role) {
+            currentRole = role;
+            if (role === 'organizer') {
+                navigateTo('results');
+            } else {
+                navigateTo('home');
+            }
+        }
+
+        function startJourney() {
+            if (currentUser.surname && currentUser.firstname) {
+                navigateTo('step1');
+            } else {
+                navigateTo('register');
+            }
+        }
+
+        function submitRegistration(event) {
+            event.preventDefault();
+            const surname = document.getElementById('reg-surname').value.trim();
+            const firstname = document.getElementById('reg-firstname').value.trim();
+            const errDiv = document.getElementById('reg-error');
+            const errMsg = document.getElementById('reg-error-msg');
+
+            if (!surname || !firstname) {
+                if (errDiv) errDiv.classList.remove('hidden');
+                if (errMsg) errMsg.innerText = "Пожалуйста, заполните обе графы!";
+                return;
+            }
+
+            // Check for existing duplicate participant
+            const duplicate = appState.participants.find(p => 
+                p.surname.toLowerCase() === surname.toLowerCase() && 
+                p.firstname.toLowerCase() === firstname.toLowerCase()
+            );
+
+            if (duplicate) {
+                if (errDiv) errDiv.classList.remove('hidden');
+                if (errMsg) errMsg.innerText = "Участник с таким именем и фамилией уже проголосовал!";
+                return;
+            }
+
+            currentUser = { surname, firstname };
+
+            // Show active participant tag
+            const tag = document.getElementById('user-header-tag');
+            const nameSpan = document.getElementById('active-user-name');
+            if (tag && nameSpan) {
+                nameSpan.innerText = `${surname} ${firstname}`;
+                tag.classList.remove('hidden');
+                tag.classList.add('flex');
+            }
+
+            navigateTo('step1');
+        }
+
+        function selectEmotion(emotion, el) {
+            currentVote.emotion = emotion;
+            document.querySelectorAll('#view-step1 .option-card').forEach(c => {
+                c.classList.remove('selected', 'gold-border-glow');
+                const badge = c.querySelector('.card-check-badge i');
+                if (badge) badge.classList.add('opacity-0');
+            });
+            
+            el.classList.add('selected', 'gold-border-glow');
+            const badge = el.querySelector('.card-check-badge i');
+            if (badge) badge.classList.remove('opacity-0');
+
+            // Show toast & confetti
+            const feedback = document.getElementById('step1-feedback');
+            if (feedback) feedback.classList.remove('hidden');
+            
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+            }
+
+            const nextBtn = document.getElementById('step1-next-btn');
+            if (nextBtn) {
+                nextBtn.removeAttribute('disabled');
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function goToStep2() {
+            if (!currentVote.emotion) return;
+            navigateTo('step2');
+        }
+
+        function toggleTopic(topic, el) {
+            const index = currentVote.topics.indexOf(topic);
+            const checkIcon = el.querySelector('.checkbox-indicator i');
+
+            if (index > -1) {
+                currentVote.topics.splice(index, 1);
+                el.classList.remove('selected', 'gold-border-glow');
+                if (checkIcon) checkIcon.classList.add('opacity-0');
+            } else {
+                currentVote.topics.push(topic);
+                el.classList.add('selected', 'gold-border-glow');
+                if (checkIcon) checkIcon.classList.remove('opacity-0');
+            }
+
+            const nextBtn = document.getElementById('step2-next-btn');
+            if (nextBtn) {
+                if (currentVote.topics.length > 0) {
+                    nextBtn.removeAttribute('disabled');
+                    nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    nextBtn.setAttribute('disabled', 'true');
+                    nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+        }
+
+        function goToStep3() {
+            if (currentVote.topics.length === 0) return;
+            navigateTo('step3');
+        }
+
+        function selectRecommendation(rec, el) {
+            currentVote.recommendation = rec;
+            document.querySelectorAll('#view-step3 .option-card').forEach(c => {
+                c.classList.remove('selected', 'gold-border-glow');
+                const badge = c.querySelector('.card-check-badge i');
+                if (badge) badge.classList.add('opacity-0');
+            });
+            
+            el.classList.add('selected', 'gold-border-glow');
+            const badge = el.querySelector('.card-check-badge i');
+            if (badge) badge.classList.remove('opacity-0');
+
+            const finishBtn = document.getElementById('step3-finish-btn');
+            if (finishBtn) {
+                finishBtn.removeAttribute('disabled');
+                finishBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function completeVoting() {
+            if (!currentVote.recommendation) return;
+
+            const newRecord = {
+                surname: currentUser.surname,
+                firstname: currentUser.firstname,
+                emotion: currentVote.emotion,
+                topics: [...currentVote.topics],
+                recommendation: currentVote.recommendation,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+
+            // Check duplicate before adding
+            const existingIdx = appState.participants.findIndex(p => p.surname === newRecord.surname && p.firstname === newRecord.firstname);
+            if (existingIdx >= 0) {
+                appState.participants[existingIdx] = newRecord;
+            } else {
+                appState.participants.push(newRecord);
+            }
+
+            saveData();
+            sendToGoogleSheets(newRecord);
+
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
+            }
+
+            navigateTo('final');
+        }
+
+        function sendToGoogleSheets(record) {
+            if (!appState.googleSheetsUrl) return;
+            try {
+                const params = new URLSearchParams();
+                params.append('action', 'write');
+                params.append('surname', record.surname);
+                params.append('firstname', record.firstname);
+                params.append('emotion', record.emotion);
+                params.append('topics', Array.isArray(record.topics) ? record.topics.join('; ') : record.topics);
+                params.append('recommendation', record.recommendation);
+
+                fetch(appState.googleSheetsUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                }).catch(err => console.log('Spreadsheet submit note:', err));
+            } catch (e) {
+                console.error('Google Sheets submission error:', e);
+            }
+        }
+
+        // Cloud fetch function to get real-time participants from Google Sheets Web App
+        async function fetchCloudData() {
+            if (!appState.googleSheetsUrl) return;
+            try {
+                const res = await fetch(appState.googleSheetsUrl + '?action=read');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        // Merge or replace remote data with local state
+                        const cloudParticipants = data.map(item => ({
+                            surname: item.surname || '',
+                            firstname: item.firstname || '',
+                            emotion: item.emotion || '',
+                            topics: typeof item.topics === 'string' ? item.topics.split('; ') : (item.topics || []),
+                            recommendation: item.recommendation || '',
+                            timestamp: item.timestamp || ''
+                        }));
+
+                        // Merge cloud data to prevent overwriting
+                        cloudParticipants.forEach(cp => {
+                            if (!cp.surname && !cp.firstname) return;
+                            const idx = appState.participants.findIndex(p => p.surname === cp.surname && p.firstname === cp.firstname);
+                            if (idx >= 0) {
+                                appState.participants[idx] = cp;
+                            } else {
+                                appState.participants.push(cp);
+                            }
+                        });
+
+                        saveData(false); // save locally without triggering loop
+                    }
+                }
+            } catch (e) {
+                // Ignore silent network errors on polling
+            }
+        }
+
+        function saveData(sync = true) {
+            try {
+                localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(appState));
+            } catch (e) {
+                console.error(e);
+            }
+            refreshAllViews();
+        }
+
+        function loadStoredData() {
+            try {
+                const raw = localStorage.getItem(APP_STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed.participants && parsed.participants.length > 0) {
+                        appState.participants = parsed.participants;
+                    }
+                    if (parsed.googleSheetsUrl) appState.googleSheetsUrl = parsed.googleSheetsUrl;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function syncDataFromCloud() {
+            fetchCloudData().then(() => {
+                refreshAllViews();
+            });
+        }
+
+        function refreshAllViews() {
+            updateJournalTable();
+            renderCharts();
+            renderAdminParticipantsTable();
+        }
+
+        function openAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function verifyAdminPassword() {
+            const input = document.getElementById('admin-pass-input');
+            const err = document.getElementById('admin-auth-error');
+            if (input && input.value === appState.adminPass) {
+                if (err) err.classList.add('hidden');
+                document.getElementById('admin-auth-section').classList.add('hidden');
+                document.getElementById('admin-control-section').classList.remove('hidden');
+
+                const sheetsInput = document.getElementById('google-sheets-url-input');
+                if (sheetsInput) sheetsInput.value = appState.googleSheetsUrl || '';
+
+                renderAdminParticipantsTable();
+            } else if (err) {
+                err.classList.remove('hidden');
+            }
+        }
+
+        function saveGoogleSheetsUrl() {
+            const input = document.getElementById('google-sheets-url-input');
+            if (input) {
+                appState.googleSheetsUrl = input.value.trim();
+                saveData();
+                alert('URL Google Таблицы сохранен!');
+            }
+        }
+
+        function renderAdminParticipantsTable() {
+            const body = document.getElementById('admin-participants-table-body');
+            const countElem = document.getElementById('admin-total-participants');
+            const votesElem = document.getElementById('admin-total-votes');
+
+            const total = appState.participants ? appState.participants.length : 0;
+            if (countElem) countElem.innerText = total;
+            if (votesElem) votesElem.innerText = total;
+
+            if (!body) return;
+
+            if (total === 0) {
+                body.innerHTML = `<tr><td colspan="5" class="py-3 text-center text-gray-500 italic">Нет зарегистрированных участников</td></tr>`;
+                return;
+            }
+
+            body.innerHTML = appState.participants.map((p, idx) => {
+                const topicsStr = Array.isArray(p.topics) ? p.topics.join(', ') : (p.topics || '—');
+                return `
+                    <tr class="hover:bg-peach-100/50">
+                        <td class="py-2 px-2 font-bold">${idx + 1}</td>
+                        <td class="py-2 px-2 font-semibold">${escapeHtml(p.surname || '')} ${escapeHtml(p.firstname || '')}</td>
+                        <td class="py-2 px-2">${escapeHtml(p.emotion || '—')}</td>
+                        <td class="py-2 px-2 text-[11px] text-gray-700">${escapeHtml(topicsStr)}</td>
+                        <td class="py-2 px-2 text-[11px]">${escapeHtml(p.recommendation || '—')}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderCharts() {
+            const total = appState.participants.length;
+
+            // Chart 1: Emotions
+            const emotionCounts = { 'Радость': 0, 'Грусть': 0, 'Любовь': 0, 'Преданность': 0, 'Семья': 0, 'Терпение': 0 };
+            appState.participants.forEach(p => {
+                if (emotionCounts[p.emotion] !== undefined) emotionCounts[p.emotion]++;
+            });
+
+            const ctxEmotions = document.getElementById('chart-emotions');
+            if (ctxEmotions) {
+                if (charts.emotions) charts.emotions.destroy();
+                charts.emotions = new Chart(ctxEmotions, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(emotionCounts),
+                        datasets: [{
+                            data: Object.values(emotionCounts),
+                            backgroundColor: ['#E6C675', '#6B1D2F', '#8B263E', '#FAD6C2', '#C5A059', '#4A111F']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            // Chart 2: Topics
+            const topicCounts = {
+                'Семейные отношения': 0,
+                'Противоречия поколений': 0,
+                'Любовь и уважение': 0,
+                'Роль женщины': 0,
+                'Авторский взгляд': 0,
+                'Жизненные ситуации': 0
+            };
+            const topicKeys = [
+                'Семейные отношения и взаимоотношения между близкими',
+                'Противоречия между поколениями',
+                'Вопросы любви, уважения и взаимоотношений',
+                'Роль женщины в семье',
+                'Авторский взгляд на человеческие взаимоотношения',
+                'Жизненные ситуации, в которых раскрываются человеческие отношения'
+            ];
+
+            appState.participants.forEach(p => {
+                if (Array.isArray(p.topics)) {
+                    p.topics.forEach(t => {
+                        const idx = topicKeys.indexOf(t);
+                        if (idx !== -1) {
+                            const shortName = Object.keys(topicCounts)[idx];
+                            topicCounts[shortName]++;
+                        }
+                    });
+                }
+            });
+
+            const topicPercentages = Object.values(topicCounts).map(cnt => total > 0 ? Math.round((cnt / total) * 100) : 0);
+
+            const ctxTopics = document.getElementById('chart-topics');
+            if (ctxTopics) {
+                if (charts.topics) charts.topics.destroy();
+                charts.topics = new Chart(ctxTopics, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(topicCounts),
+                        datasets: [{
+                            label: '% от проголосовавших',
+                            data: topicPercentages,
+                            backgroundColor: '#8B263E'
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { x: { max: 100, ticks: { callback: v => v + '%' } } }
+                    }
+                });
+            }
+
+            // Chart 3: Recommendations
+            const recCounts = { 'ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ!': 0, 'ДЛЯ ЛЮБИТЕЛЕЙ ДРАМЫ': 0 };
+            appState.participants.forEach(p => {
+                if (recCounts[p.recommendation] !== undefined) recCounts[p.recommendation]++;
+            });
+
+            const ctxRecs = document.getElementById('chart-recommendations');
+            if (ctxRecs) {
+                if (charts.recs) charts.recs.destroy();
+                charts.recs = new Chart(ctxRecs, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(recCounts),
+                        datasets: [{
+                            data: Object.values(recCounts),
+                            backgroundColor: ['#D4AF37', '#6B1D2F']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Overwrite journal table update to display full database responses for organizer
+        function updateJournalTable() {
+            const tbody = document.getElementById('journal-table-body');
+            const totalCounter = document.getElementById('results-total-count');
+            
+            const totalCount = appState.participants ? appState.participants.length : 0;
+            if (totalCounter) {
+                totalCounter.innerText = totalCount;
+            }
+
+            if (!tbody) return;
+
+            if (totalCount === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-gray-500 italic">Пока нет зарегистрированных ответов в базе данных</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = appState.participants.map((p, idx) => {
+                const emotionText = p.emotion ? escapeHtml(p.emotion) : '<span class="text-gray-400">—</span>';
+                
+                let topicsText = '<span class="text-gray-400">—</span>';
+                if (Array.isArray(p.topics) && p.topics.length > 0) {
+                    topicsText = p.topics.map(t => `<span class="inline-block bg-cream-200 text-wine-900 px-1.5 py-0.5 rounded border border-gold-400/40 text-[10px] mr-1 mb-1">${escapeHtml(t)}</span>`).join('');
+                } else if (p.topics && typeof p.topics === 'string') {
+                    topicsText = escapeHtml(p.topics);
+                }
+
+                const recText = p.recommendation ? escapeHtml(p.recommendation) : '<span class="text-gray-400">—</span>';
+
+                return `
+                    <tr class="hover:bg-peach-100/40 transition border-b border-gray-100">
+                        <td class="py-3 px-3 font-bold text-wine-800">${idx + 1}</td>
+                        <td class="py-3 px-3 font-semibold">${escapeHtml(p.surname || '')} ${escapeHtml(p.firstname || '')}</td>
+                        <td class="py-3 px-3 font-medium text-wine-800">${emotionText}</td>
+                        <td class="py-3 px-3 text-xs text-gray-700 max-w-xs">${topicsText}</td>
+                        <td class="py-3 px-3 font-medium text-xs text-wine-900">${recText}</td>
+                        <td class="py-3 px-3 text-xs text-gray-500">${p.timestamp || 'Только что'}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function confirmResetResults() {
+            if (confirm("Вы уверены, что хотите сбросить все результаты голосования? Это действие невозможно отменить.")) {
+                appState.participants = [];
+                saveData();
+                closeAdminModal();
+            }
+        }
+
+        function exportToCSV() {
+            if (!appState.participants || appState.participants.length === 0) {
+                alert("Нет данных для выгрузки.");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+            csvContent += "№,Фамилия,Имя,Эмоция,Выбранные Темы,Рекомендация,Время\n";
+
+            appState.participants.forEach((p, i) => {
+                const topicsStr = `"${(p.topics || []).join('; ')}"`;
+                const row = [
+                    i + 1,
+                    `"${p.surname}"`,
+                    `"${p.firstname}"`,
+                    `"${p.emotion}"`,
+                    topicsStr,
+                    `"${p.recommendation}"`,
+                    `"${p.timestamp || ''}"`
+                ].join(",");
+                csvContent += row + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `knizhny_vernissage_report_${Date.now()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function initBackgroundEffects() {
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const items = [];
+            const itemCount = 35;
+
+            for (let i = 0; i < itemCount; i++) {
+                items.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 8 + 4,
+                    speedY: Math.random() * 0.8 + 0.3,
+                    speedX: Math.sin(Math.random() * Math.PI) * 0.5,
+                    rotation: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 1.5,
+                    type: Math.random() > 0.4 ? 'petal' : 'sparkle',
+                    opacity: Math.random() * 0.6 + 0.2
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+
+                items.forEach(item => {
+                    item.y += item.speedY;
+                    item.x += Math.sin(item.y * 0.01) * 0.4;
+                    item.rotation += item.rotSpeed;
+
+                    if (item.y > height + 20) {
+                        item.y = -20;
+                        item.x = Math.random() * width;
+                    }
+
+                    ctx.save();
+                    ctx.translate(item.x, item.y);
+                    ctx.rotate((item.rotation * Math.PI) / 180);
+                    ctx.globalAlpha = item.opacity;
+
+                    if (item.type === 'petal') {
+                        ctx.fillStyle = '#FAD6C2';
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, item.size, item.size * 1.5, 0, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillStyle = '#D4AF37';
+                        ctx.beginPath();
+                        ctx.arc(0, 0, item.size * 0.3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+
+                    ctx.restore();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        window.onload = function () {
+            loadStoredData();
+            initBackgroundEffects();
+            refreshAllViews();
+
+            // Background poller for live synchronization across all devices
+            setInterval(() => {
+                fetchCloudData();
+                refreshAllViews();
+            }, 3000);
+        };
+    </script>
+</body>
+</html>
