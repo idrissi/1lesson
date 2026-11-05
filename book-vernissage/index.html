@@ -288,7 +288,7 @@
                         <i class="fa-solid fa-address-card"></i>
                     </div>
                     <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900">
-                        ДОБРО ПОЖАЛОВАТЬ В КІТАП ВЕРНИСАЖЫ!
+                        КІТАП ВЕРНИСАЖЫНА ҚОШ КЕЛДІҢІЗ!
                     </h2>
                     <p class="text-gray-600 text-sm md:text-base mt-2">
                         Әсеріңізбен бөліспес бұрын, өзіңізді таныстырыңыз.
@@ -580,7 +580,7 @@
                     </button>
                     <button onclick="navigateTo('home')" class="px-8 py-3.5 rounded-xl border-2 border-wine-800 text-wine-800 hover:bg-wine-800 hover:text-white transition font-bold text-base flex items-center justify-center gap-2">
                         <i class="fa-solid fa-house"></i>
-                        <span>ВЕРНУТЬСЯ НА ГЛАВНАЮ</span>
+                        <span>БАСТЫ БЕТКЕ ОРАЛУ</span>
                     </button>
                 </div>
             </div>
@@ -591,7 +591,7 @@
             <div class="space-y-6">
                 <div class="glass-card rounded-3xl p-6 md:p-8 text-center border-b-4 border-gold-400">
                     <h2 class="font-serif text-3xl md:text-4xl font-bold text-wine-900">
-                        КІТАП ВЕРНИСАЖЫ: ГОЛОС ЧИТАТЕЛЕЙ
+                        КІТАП ВЕРНИСАЖЫ: ОҚЫРМАН ҮНІ
                     </h2>
                     <p class="text-gray-600 text-sm mt-1">Оқырман ой-толғауының интерактивті тақтасы</p>
 
@@ -881,7 +881,7 @@
 
             if (duplicate) {
                 if (errDiv) errDiv.classList.remove('hidden');
-                if (errMsg) errMsg.innerText = "Қатысушы с таким именем и фамилией уже проголосовал!";
+                if (errMsg) errMsg.innerText = "Бұл аты-жөнімен қатысушы бұрын жауап берген!";
                 return;
             }
 
@@ -1061,7 +1061,7 @@
             const btn = document.getElementById('step3-finish-btn');
             if (btn && btn.disabled) return;
             if (!appState.googleSheetsUrl) {
-                showSaveStatus('Google Таблица не подключена. Организатор должен указать адрес опубликованного Apps Script в меню «Деректер базасы».');
+                showSaveStatus('Google кестесі қосылмаған. Ұйымдастырушы «Деректер базасы» бөлімінде жарияланған Apps Script сілтемесін көрсетуі керек.');
                 return;
             }
             const newRecord = {
@@ -1376,7 +1376,7 @@
             }
 
             let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
-            csvContent += "№,Тегі,Аты,Сезім,Выбранные Темы,Ұсыным,Уақыты\n";
+            csvContent += "№,Тегі,Аты,Сезім,Таңдалған тақырыптар,Ұсыным,Уақыты\n";
 
             appState.participants.forEach((p, i) => {
                 const topicsStr = `"${(p.topics || []).join('; ')}"`;
