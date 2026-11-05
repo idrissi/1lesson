@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>КНИЖНЫЙ ВЕРНИСАЖ — Гауһар тас</title>
+    <title>КІТАП ВЕРНИСАЖЫ — Гауһар тас</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -193,9 +193,9 @@
                 </div>
                 <div>
                     <h1 class="font-serif font-bold text-wine-900 tracking-wide leading-tight text-lg md:text-xl">
-                        КНИЖНЫЙ ВЕРНИСАЖ
+                        КІТАП ВЕРНИСАЖЫ
                     </h1>
-                    <p class="text-xs text-wine-800 font-medium tracking-wider">«ЧИТАЕМ ВМЕСТЕ — РАЗМЫШЛЯЕМ ВМЕСТЕ!»</p>
+                    <p class="text-xs text-wine-800 font-medium tracking-wider">«БІРГЕ ОҚИМЫЗ — БІРГЕ ОЙ ТОЛҒАЙМЫЗ!»</p>
                 </div>
             </div>
 
@@ -209,15 +209,15 @@
             <div class="flex items-center space-x-2 md:space-x-3">
                 <button onclick="switchRole('participant')" class="px-3.5 py-1.5 rounded-lg border border-wine-800 text-wine-800 hover:bg-wine-800 hover:text-white transition text-xs md:text-sm font-semibold flex items-center gap-1.5">
                     <i class="fa-solid fa-user"></i>
-                    <span>Режим «Участник»</span>
+                    <span>«Қатысушы» режимі</span>
                 </button>
                 <button onclick="switchRole('organizer')" class="px-3.5 py-1.5 rounded-lg bg-wine-700 hover:bg-wine-800 text-white transition text-xs md:text-sm font-semibold flex items-center gap-1.5 shadow-sm">
                     <i class="fa-solid fa-desktop"></i>
-                    <span>Режим «Организатор»</span>
+                    <span>«Ұйымдастырушы» режимі</span>
                 </button>
                 <button onclick="openAdminModal()" class="px-3.5 py-1.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-wine-900 transition text-xs md:text-sm font-semibold flex items-center gap-1.5 shadow-sm">
                     <i class="fa-solid fa-database"></i>
-                    <span>База данных</span>
+                    <span>Деректер базасы</span>
                 </button>
             </div>
         </div>
@@ -234,15 +234,15 @@
                 </div>
 
                 <p class="text-wine-700 uppercase tracking-widest text-xs md:text-sm font-bold mb-2">
-                    Литературное событие &bull; Читательская рефлексия
+                    Әдеби іс-шара &bull; Оқырман ой-толғауы
                 </p>
 
                 <h1 class="font-serif text-3xl md:text-5xl font-bold text-wine-900 mb-2 leading-tight">
-                    КНИЖНЫЙ ВЕРНИСАЖ
+                    КІТАП ВЕРНИСАЖЫ
                 </h1>
                 
                 <h2 class="font-serif italic text-xl md:text-2xl text-gold-600 font-semibold mb-6">
-                    Повесть Дулата Исабекова «Гауһар тас»
+                    Дулат Исабековтің «Гауһар тас» повесі
                 </h2>
 
                 <!-- Book Cover Visual -->
@@ -251,7 +251,7 @@
                         <div class="w-48 h-68 md:w-56 md:h-80 bg-gradient-to-tr from-wine-900 via-wine-800 to-wine-700 rounded-r-xl rounded-l-sm shadow-2xl p-5 flex flex-col justify-between text-left border-r-4 border-gold-400 relative transform transition group-hover:scale-105 duration-300">
                             <div class="absolute top-0 left-0 bottom-0 w-3 bg-wine-900/60 rounded-l-sm border-r border-gold-400/30"></div>
                             <div class="pl-3">
-                                <span class="text-[10px] text-gold-300 tracking-widest uppercase block font-mono">Классика</span>
+                                <span class="text-[10px] text-gold-300 tracking-widest uppercase block font-mono">Классикалық әдебиет</span>
                                 <h3 class="font-serif text-gold-400 font-bold text-2xl leading-tight mt-1">Гауһар тас</h3>
                                 <p class="text-xs text-peach-200 mt-1 italic">Дулат Исабеков</p>
                             </div>
@@ -259,7 +259,7 @@
                                 <i class="fa-solid fa-gem text-5xl text-gold-400/90 animate-pulse"></i>
                             </div>
                             <div class="pl-3 text-[10px] text-peach-100/80 border-t border-gold-400/30 pt-2 flex justify-between items-center">
-                                <span>Отзыв читателя</span>
+                                <span>Оқырман пікірі</span>
                                 <i class="fa-solid fa-bookmark text-gold-400"></i>
                             </div>
                         </div>
@@ -268,12 +268,12 @@
                 </div>
 
                 <p class="font-cormorant italic text-lg md:text-2xl text-wine-900 max-w-2xl mx-auto my-6 leading-relaxed">
-                    «Каждая прочитанная книга оставляет след в душе. Поделитесь своими впечатлениями!»
+                    «Оқыған әр кітап жүректе із қалдырады. Өз әсеріңізбен бөлісіңіз!»
                 </p>
 
                 <div class="pt-2">
                     <button onclick="startJourney()" class="wine-gradient-btn text-white font-bold text-base md:text-lg px-8 py-4 rounded-full shadow-lg border border-gold-400/40 flex items-center justify-center gap-3 mx-auto">
-                        <span>НАЧАТЬ ЛИТЕРАТУРНОЕ ПУТЕШЕСТВИЕ</span>
+                        <span>ӘДЕБИ САЯХАТТЫ БАСТАУ</span>
                         <i class="fa-solid fa-arrow-right text-gold-400"></i>
                     </button>
                 </div>
@@ -288,37 +288,37 @@
                         <i class="fa-solid fa-address-card"></i>
                     </div>
                     <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900">
-                        ДОБРО ПОЖАЛОВАТЬ В КНИЖНЫЙ ВЕРНИСАЖ!
+                        ДОБРО ПОЖАЛОВАТЬ В КІТАП ВЕРНИСАЖЫ!
                     </h2>
                     <p class="text-gray-600 text-sm md:text-base mt-2">
-                        Прежде чем поделиться своими впечатлениями, представьтесь, пожалуйста.
+                        Әсеріңізбен бөліспес бұрын, өзіңізді таныстырыңыз.
                     </p>
                 </div>
 
                 <form id="registration-form" onsubmit="submitRegistration(event)" class="space-y-5">
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-wine-900 mb-1.5" for="reg-surname">
-                            Фамилия <span class="text-wine-700">*</span>
+                            Тегі <span class="text-wine-700">*</span>
                         </label>
-                        <input type="text" id="reg-surname" required placeholder="Введите вашу фамилию" 
+                        <input type="text" id="reg-surname" required placeholder="Тегіңізді енгізіңіз" 
                             class="w-full px-4 py-3 rounded-xl border border-gold-400/50 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-wine-700 text-wine-900 font-medium">
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-wine-900 mb-1.5" for="reg-firstname">
-                            Имя <span class="text-wine-700">*</span>
+                            Аты <span class="text-wine-700">*</span>
                         </label>
-                        <input type="text" id="reg-firstname" required placeholder="Введите ваше имя" 
+                        <input type="text" id="reg-firstname" required placeholder="Атыңызды енгізіңіз" 
                             class="w-full px-4 py-3 rounded-xl border border-gold-400/50 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-wine-700 text-wine-900 font-medium">
                     </div>
 
                     <div id="reg-error" class="hidden text-sm text-wine-800 bg-peach-100 p-3 rounded-xl border border-wine-700/30 flex items-center gap-2">
                         <i class="fa-solid fa-circle-exclamation text-wine-700"></i>
-                        <span id="reg-error-msg">Заполните обязательные поля.</span>
+                        <span id="reg-error-msg">Міндетті өрістерді толтырыңыз.</span>
                     </div>
 
                     <button type="submit" class="w-full wine-gradient-btn text-white font-bold py-3.5 rounded-xl text-base shadow-md mt-4 flex items-center justify-center gap-2">
-                        <span>ПЕРЕЙТИ К ОПРОСУ</span>
+                        <span>САУАЛНАМАҒА ӨТУ</span>
                         <i class="fa-solid fa-circle-chevron-right text-gold-400"></i>
                     </button>
                 </form>
@@ -329,74 +329,74 @@
         <section id="view-step1" class="hidden w-full max-w-3xl mx-auto py-4">
             <div class="glass-card rounded-3xl p-6 md:p-10 shadow-xl">
                 <div class="flex items-center justify-between mb-6 pb-4 border-b border-gold-400/20">
-                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">Этап 1 из 3</span>
-                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Эмоции и впечатления</span>
+                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">3 кезеңнің 1-кезеңі</span>
+                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Сезімдер мен әсерлер</span>
                 </div>
 
                 <div class="text-center mb-8">
                     <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900 mb-3">
-                        ОДНИМ СЛОВОМ О ПОВЕСТИ…
+                        ПОВЕСТЬ ТУРАЛЫ БІР АУЫЗ СӨЗ…
                     </h2>
                     <p class="text-gray-700 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
-                        Какое слово лучше всего передаёт ваши эмоции и впечатления после прочтения повести Дулата Исабекова «Гауһар тас»?
+                        Дулат Исабековтің «Гауһар тас» повесін оқығаннан кейінгі сезіміңіз бен әсеріңізді қай сөз жақсы жеткізеді?
                     </p>
                 </div>
 
                 <!-- 6 Emotion Cards -->
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-                    <div onclick="selectEmotion('Радость', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                    <div onclick="selectEmotion('Қуаныш', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
                         <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                         <span class="text-4xl">❤️</span>
-                        <span class="font-bold text-wine-900 text-base">Радость</span>
+                        <span class="font-bold text-wine-900 text-base">Қуаныш</span>
                     </div>
-                    <div onclick="selectEmotion('Грусть', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                    <div onclick="selectEmotion('Мұң', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
                         <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                         <span class="text-4xl">💧</span>
-                        <span class="font-bold text-wine-900 text-base">Грусть</span>
+                        <span class="font-bold text-wine-900 text-base">Мұң</span>
                     </div>
-                    <div onclick="selectEmotion('Любовь', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                    <div onclick="selectEmotion('Махаббат', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
                         <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                         <span class="text-4xl">🌹</span>
-                        <span class="font-bold text-wine-900 text-base">Любовь</span>
+                        <span class="font-bold text-wine-900 text-base">Махаббат</span>
                     </div>
-                    <div onclick="selectEmotion('Преданность', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                    <div onclick="selectEmotion('Адалдық', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
                         <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                         <span class="text-4xl">🤝</span>
-                        <span class="font-bold text-wine-900 text-base">Преданность</span>
+                        <span class="font-bold text-wine-900 text-base">Адалдық</span>
                     </div>
-                    <div onclick="selectEmotion('Семья', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                    <div onclick="selectEmotion('Отбасы', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
                         <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                         <span class="text-4xl">🏡</span>
-                        <span class="font-bold text-wine-900 text-base">Семья</span>
+                        <span class="font-bold text-wine-900 text-base">Отбасы</span>
                     </div>
-                    <div onclick="selectEmotion('Терпение', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
+                    <div onclick="selectEmotion('Сабыр', this)" class="option-card p-5 rounded-2xl bg-white/90 border-2 border-gold-400/30 text-center flex flex-col items-center justify-center space-y-2 relative">
                         <div class="card-check-badge absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                         <span class="text-4xl">🌿</span>
-                        <span class="font-bold text-wine-900 text-base">Терпение</span>
+                        <span class="font-bold text-wine-900 text-base">Сабыр</span>
                     </div>
                 </div>
 
                 <!-- Toast Notification -->
                 <div id="step1-feedback" class="hidden mb-6 p-3 bg-emerald-100 border border-emerald-400 text-emerald-800 rounded-xl text-center font-semibold text-sm flex items-center justify-center gap-2">
                     <i class="fa-solid fa-circle-check text-emerald-600"></i>
-                    <span>Ваш голос принят!</span>
+                    <span>Таңдауыңыз қабылданды!</span>
                 </div>
 
                 <div class="flex justify-end">
                     <button id="step1-next-btn" disabled onclick="goToStep2()" class="wine-gradient-btn opacity-50 cursor-not-allowed text-white font-bold px-8 py-3 rounded-xl text-base shadow flex items-center gap-2">
-                        <span>ДАЛЕЕ</span>
+                        <span>КЕЛЕСІ</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
@@ -407,75 +407,75 @@
         <section id="view-step2" class="hidden w-full max-w-3xl mx-auto py-4">
             <div class="glass-card rounded-3xl p-6 md:p-10 shadow-xl">
                 <div class="flex items-center justify-between mb-6 pb-4 border-b border-gold-400/20">
-                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">Этап 2 из 3</span>
-                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Темы для размышлений</span>
+                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">3 кезеңнің 2-кезеңі</span>
+                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Ой қозғайтын тақырыптар</span>
                 </div>
 
                 <div class="text-center mb-8">
                     <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900 mb-2">
-                        ЧТО ВАС ЗАИНТЕРЕСОВАЛО В ПОВЕСТИ?
+                        ПОВЕСТЬТЕ СІЗДІ НЕ ҚЫЗЫҚТЫРДЫ?
                     </h2>
                     <p class="text-gray-700 text-sm md:text-base leading-relaxed">
-                        Какие темы произведения нашли отклик в вашей душе? <br><span class="text-xs text-wine-700 font-semibold">(Можно выбрать несколько вариантов)</span>
+                        Шығармадағы қандай тақырыптар сізге әсер етті? <br><span class="text-xs text-wine-700 font-semibold">(Бірнеше жауапты таңдауға болады)</span>
                     </p>
                 </div>
 
                 <!-- Topics list -->
                 <div class="space-y-3 mb-8">
-                    <div onclick="toggleTopic('Семейные отношения и взаимоотношения между близкими', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                    <div onclick="toggleTopic('Отбасылық қарым-қатынас және жақындар арасындағы байланыс', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
                         <div class="flex items-center space-x-3">
                             <span class="text-2xl">👨‍👩‍👧</span>
-                            <span class="text-wine-900 font-medium text-sm md:text-base">Семейные отношения и взаимоотношения между близкими.</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Отбасылық қарым-қатынас және жақындар арасындағы байланыс.</span>
                         </div>
                         <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                     </div>
 
-                    <div onclick="toggleTopic('Противоречия между поколениями', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                    <div onclick="toggleTopic('Ұрпақтар арасындағы қайшылықтар', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
                         <div class="flex items-center space-x-3">
                             <span class="text-2xl">🔄</span>
-                            <span class="text-wine-900 font-medium text-sm md:text-base">Противоречия между поколениями.</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Ұрпақтар арасындағы қайшылықтар.</span>
                         </div>
                         <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                     </div>
 
-                    <div onclick="toggleTopic('Вопросы любви, уважения и взаимоотношений', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                    <div onclick="toggleTopic('Махаббат, сыйластық және өзара қарым-қатынас мәселелері', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
                         <div class="flex items-center space-x-3">
                             <span class="text-2xl">❤️</span>
-                            <span class="text-wine-900 font-medium text-sm md:text-base">Вопросы любви, уважения и взаимоотношений.</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Махаббат, сыйластық және өзара қарым-қатынас мәселелері.</span>
                         </div>
                         <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                     </div>
 
-                    <div onclick="toggleTopic('Роль женщины в семье', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                    <div onclick="toggleTopic('Әйелдің отбасындағы рөлі', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
                         <div class="flex items-center space-x-3">
                             <span class="text-2xl">🌷</span>
-                            <span class="text-wine-900 font-medium text-sm md:text-base">Роль женщины в семье.</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Әйелдің отбасындағы рөлі.</span>
                         </div>
                         <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                     </div>
 
-                    <div onclick="toggleTopic('Авторский взгляд на человеческие взаимоотношения', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                    <div onclick="toggleTopic('Адамдар арасындағы қарым-қатынасқа автордың көзқарасы', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
                         <div class="flex items-center space-x-3">
                             <span class="text-2xl">📖</span>
-                            <span class="text-wine-900 font-medium text-sm md:text-base">Авторский взгляд на человеческие взаимоотношения.</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Адамдар арасындағы қарым-қатынасқа автордың көзқарасы.</span>
                         </div>
                         <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                     </div>
 
-                    <div onclick="toggleTopic('Жизненные ситуации, в которых раскрываются человеческие отношения', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
+                    <div onclick="toggleTopic('Адами қарым-қатынасты ашып көрсететін өмірлік жағдайлар', this)" class="option-card p-4 rounded-xl bg-white/90 border border-gold-400/40 flex items-center justify-between gap-3">
                         <div class="flex items-center space-x-3">
                             <span class="text-2xl">💭</span>
-                            <span class="text-wine-900 font-medium text-sm md:text-base">Жизненные ситуации, в которых раскрываются человеческие отношения.</span>
+                            <span class="text-wine-900 font-medium text-sm md:text-base">Адами қарым-қатынасты ашып көрсететін өмірлік жағдайлар.</span>
                         </div>
                         <div class="checkbox-indicator w-7 h-7 rounded-md border-2 border-gold-500 flex items-center justify-center text-white bg-white flex-shrink-0">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
@@ -485,10 +485,10 @@
 
                 <div class="flex justify-between items-center">
                     <button onclick="navigateTo('step1')" class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 text-sm font-semibold">
-                        Назад
+                        Артқа
                     </button>
                     <button id="step2-next-btn" disabled onclick="goToStep3()" class="wine-gradient-btn opacity-50 cursor-not-allowed text-white font-bold px-8 py-3 rounded-xl text-base shadow flex items-center gap-2">
-                        <span>ДАЛЕЕ</span>
+                        <span>КЕЛЕСІ</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
@@ -499,50 +499,50 @@
         <section id="view-step3" class="hidden w-full max-w-3xl mx-auto py-4">
             <div class="glass-card rounded-3xl p-6 md:p-10 shadow-xl">
                 <div class="flex items-center justify-between mb-6 pb-4 border-b border-gold-400/20">
-                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">Этап 3 из 3</span>
-                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Рекомендация</span>
+                    <span class="text-xs font-bold tracking-widest text-gold-600 uppercase">3 кезеңнің 3-кезеңі</span>
+                    <span class="text-xs font-semibold text-wine-800 bg-peach-100 px-3 py-1 rounded-full">Ұсыным</span>
                 </div>
 
                 <div class="text-center mb-8">
                     <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900 mb-2">
-                        А ВЫ ПОРЕКОМЕНДУЕТЕ ЭТУ ПОВЕСТЬ ДРУГИМ ЧИТАТЕЛЯМ?
+                        БҰЛ ПОВЕСТІ БАСҚА ОҚЫРМАНДАРҒА ҰСЫНАР МА ЕДІҢІЗ?
                     </h2>
                 </div>
 
                 <div class="space-y-4 mb-8">
-                    <div onclick="selectRecommendation('ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ!', this)" class="option-card p-6 rounded-2xl bg-white/90 border-2 border-gold-400/40 space-y-2 relative">
+                    <div onclick="selectRecommendation('МІНДЕТТІ ТҮРДЕ ОҚЫҢЫЗ!', this)" class="option-card p-6 rounded-2xl bg-white/90 border-2 border-gold-400/40 space-y-2 relative">
                         <div class="card-check-badge absolute top-4 right-4 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                         <div class="flex items-center space-x-3 pr-8">
                             <span class="text-3xl">📚</span>
-                            <h3 class="font-bold text-wine-900 text-lg md:text-xl">ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ!</h3>
+                            <h3 class="font-bold text-wine-900 text-lg md:text-xl">МІНДЕТТІ ТҮРДЕ ОҚЫҢЫЗ!</h3>
                         </div>
                         <p class="text-gray-700 text-sm md:text-base pl-11">
-                            «Повесть заставляет задуматься о жизни, семейных ценностях и человеческих отношениях».
+                            «Бұл повесть өмір, отбасылық құндылықтар және адами қарым-қатынас туралы ойлануға жетелейді». 
                         </p>
                     </div>
 
-                    <div onclick="selectRecommendation('ДЛЯ ЛЮБИТЕЛЕЙ ДРАМЫ', this)" class="option-card p-6 rounded-2xl bg-white/90 border-2 border-gold-400/40 space-y-2 relative">
+                    <div onclick="selectRecommendation('ДРАМАНЫ ҰНАТАТЫНДАРҒА', this)" class="option-card p-6 rounded-2xl bg-white/90 border-2 border-gold-400/40 space-y-2 relative">
                         <div class="card-check-badge absolute top-4 right-4 w-7 h-7 rounded-full border-2 border-gold-400/60 flex items-center justify-center text-white bg-cream-200">
                             <i class="fa-solid fa-check text-xs opacity-0"></i>
                         </div>
                         <div class="flex items-center space-x-3 pr-8">
                             <span class="text-3xl">🎭</span>
-                            <h3 class="font-bold text-wine-900 text-lg md:text-xl">ДЛЯ ЛЮБИТЕЛЕЙ ДРАМЫ</h3>
+                            <h3 class="font-bold text-wine-900 text-lg md:text-xl">ДРАМАНЫ ҰНАТАТЫНДАРҒА</h3>
                         </div>
                         <p class="text-gray-700 text-sm md:text-base pl-11">
-                            «Произведение для тех, кто ценит психологическую прозу, глубокие переживания и непростые человеческие судьбы».
+                            «Бұл шығарма психологиялық прозаны, терең сезімдер мен күрделі адам тағдырларын бағалайтын оқырмандарға арналған». 
                         </p>
                     </div>
                 </div>
 
                 <div class="flex justify-between items-center">
                     <button onclick="navigateTo('step2')" class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 text-sm font-semibold">
-                        Назад
+                        Артқа
                     </button>
                     <button id="step3-finish-btn" disabled onclick="completeVoting()" class="gold-gradient-btn opacity-50 cursor-not-allowed font-bold px-8 py-3.5 rounded-xl text-base shadow flex items-center gap-2">
-                        <span>ЗАВЕРШИТЬ И ПОДЕЛИТЬСЯ ВПЕЧАТЛЕНИЯМИ</span>
+                        <span>АЯҚТАП, ӨЗ ӘСЕРІҢІЗБЕН БӨЛІСУ</span>
                         <i class="fa-solid fa-check"></i>
                     </button>
                 </div>
@@ -557,26 +557,26 @@
                 </div>
 
                 <h2 class="font-serif text-2xl md:text-3xl font-bold text-wine-900 mb-2">
-                    Спасибо за участие!
+                    Қатысқаныңызға рақмет!
                 </h2>
                 <p class="text-wine-800 font-semibold mb-6">
-                    Ваше мнение стало частью нашего Книжного вернисажа!
+                    Сіздің пікіріңіз «Кітап вернисажының» бір бөлігіне айналды!
                 </p>
 
                 <div class="p-6 bg-cream-300/50 rounded-2xl border border-gold-400/30 my-6">
                     <p class="font-cormorant italic text-xl md:text-2xl text-wine-900 leading-relaxed">
-                        «Книга заканчивается последней страницей, но мысли и чувства, которые она пробуждает, остаются с нами».
+                        «Кітаптың соңғы беті жабылғанымен, ол оятқан ойлар мен сезімдер бізбен бірге қалады». 
                     </p>
                 </div>
 
                 <p class="font-serif font-bold text-wine-800 text-base md:text-xl tracking-wide uppercase my-6 leading-snug">
-                    ЧИТАЕМ ВМЕСТЕ! РАЗМЫШЛЯЕМ ВМЕСТЕ! <br>ОТКРЫВАЕМ НОВЫЕ СМЫСЛЫ ВМЕСТЕ!
+                    БІРГЕ ОҚИМЫЗ! БІРГЕ ОЙ ТОЛҒАЙМЫЗ! <br>БІРГЕ ЖАҢА МАҒЫНАЛАР АШАМЫЗ!
                 </p>
 
                 <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
                     <button onclick="navigateTo('results')" class="wine-gradient-btn text-white font-bold px-8 py-3.5 rounded-xl text-base shadow flex items-center justify-center gap-2">
                         <i class="fa-solid fa-chart-pie"></i>
-                        <span>ПАНЕЛЬ РЕЗУЛЬТАТОВ</span>
+                        <span>НӘТИЖЕЛЕР ТАҚТАСЫ</span>
                     </button>
                     <button onclick="navigateTo('home')" class="px-8 py-3.5 rounded-xl border-2 border-wine-800 text-wine-800 hover:bg-wine-800 hover:text-white transition font-bold text-base flex items-center justify-center gap-2">
                         <i class="fa-solid fa-house"></i>
@@ -591,22 +591,22 @@
             <div class="space-y-6">
                 <div class="glass-card rounded-3xl p-6 md:p-8 text-center border-b-4 border-gold-400">
                     <h2 class="font-serif text-3xl md:text-4xl font-bold text-wine-900">
-                        КНИЖНЫЙ ВЕРНИСАЖ: ГОЛОС ЧИТАТЕЛЕЙ
+                        КІТАП ВЕРНИСАЖЫ: ГОЛОС ЧИТАТЕЛЕЙ
                     </h2>
-                    <p class="text-gray-600 text-sm mt-1">Интерактивная панель читательской рефлексии</p>
+                    <p class="text-gray-600 text-sm mt-1">Оқырман ой-толғауының интерактивті тақтасы</p>
 
                     <!-- Total Participants Counter -->
                     <div class="flex flex-wrap justify-center items-center gap-4 mt-4">
                         <div class="inline-flex items-center space-x-3 bg-wine-800 text-gold-300 px-6 py-2.5 rounded-full shadow-lg border border-gold-400/50">
                             <i class="fa-solid fa-users text-lg"></i>
-                            <span class="font-serif text-lg font-bold tracking-wider">ВСЕГО УЧАСТНИКОВ:</span>
+                            <span class="font-serif text-lg font-bold tracking-wider">ҚАТЫСУШЫЛАР САНЫ:</span>
                             <span id="results-total-count" class="font-mono text-2xl font-bold text-white">0</span>
                         </div>
 
                         <!-- Cloud Sync Indicator Button -->
                         <button onclick="syncDataFromCloud()" class="px-4 py-2 bg-cream-200 hover:bg-peach-100 border border-gold-400/60 rounded-full text-xs font-bold text-wine-900 flex items-center gap-2 transition shadow-sm">
                             <i class="fa-solid fa-rotate text-gold-600"></i>
-                            <span>Обновить результаты</span>
+                            <span>Нәтижелерді жаңарту</span>
                         </button>
                     </div>
                 </div>
@@ -617,7 +617,7 @@
                     <div class="glass-card rounded-3xl p-6 shadow-md">
                         <h3 class="font-serif font-bold text-wine-900 text-lg mb-2 flex items-center gap-2 border-b border-gold-400/30 pb-2">
                             <i class="fa-solid fa-heart text-wine-700"></i>
-                            Блок 1. Эмоции читателей
+                            1-бөлім. Оқырман сезімдері
                         </h3>
                         <div class="h-64 relative">
                             <canvas id="chart-emotions"></canvas>
@@ -628,7 +628,7 @@
                     <div class="glass-card rounded-3xl p-6 shadow-md">
                         <h3 class="font-serif font-bold text-wine-900 text-lg mb-2 flex items-center gap-2 border-b border-gold-400/30 pb-2">
                             <i class="fa-solid fa-thumbs-up text-wine-700"></i>
-                            Блок 3. Рекомендации читателей
+                            3-бөлім. Оқырман ұсынымдары
                         </h3>
                         <div class="h-64 relative">
                             <canvas id="chart-recommendations"></canvas>
@@ -640,7 +640,7 @@
                 <div class="glass-card rounded-3xl p-6 shadow-md">
                     <h3 class="font-serif font-bold text-wine-900 text-lg mb-2 flex items-center gap-2 border-b border-gold-400/30 pb-2">
                         <i class="fa-solid fa-lightbulb text-wine-700"></i>
-                        Блок 2. Темы для размышления (%)
+                        2-бөлім. Ой қозғайтын тақырыптар (%)
                     </h3>
                     <div class="h-72 relative">
                         <canvas id="chart-topics"></canvas>
@@ -652,10 +652,10 @@
                     <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-2 border-b border-gold-400/30">
                         <h3 class="font-serif font-bold text-wine-900 text-lg flex items-center gap-2">
                             <i class="fa-solid fa-table-list text-wine-700"></i>
-                            Блок 4. Общая итоговая база ответов участников
+                            4-бөлім. Қатысушылар жауаптарының жалпы базасы
                         </h3>
                         <span class="text-xs bg-wine-800 text-gold-300 px-3 py-1 rounded-full font-semibold">
-                            Обновление в реальном времени
+                            Нақты уақытта жаңартылады
                         </span>
                     </div>
                     <div class="overflow-x-auto">
@@ -663,16 +663,16 @@
                             <thead class="bg-peach-100 uppercase text-xs text-wine-800 font-bold border-b border-gold-400/30">
                                 <tr>
                                     <th class="py-3 px-3">№</th>
-                                    <th class="py-3 px-3">Участник</th>
-                                    <th class="py-3 px-3">Эмоция</th>
-                                    <th class="py-3 px-3">Выбранные темы</th>
-                                    <th class="py-3 px-3">Рекомендация</th>
-                                    <th class="py-3 px-3">Время</th>
+                                    <th class="py-3 px-3">Қатысушы</th>
+                                    <th class="py-3 px-3">Сезім</th>
+                                    <th class="py-3 px-3">Таңдалған тақырыптар</th>
+                                    <th class="py-3 px-3">Ұсыным</th>
+                                    <th class="py-3 px-3">Уақыты</th>
                                 </tr>
                             </thead>
                             <tbody id="journal-table-body" class="divide-y divide-gray-200">
                                 <tr>
-                                    <td colspan="6" class="py-4 text-center text-gray-500 italic">Пока нет зарегистрированных участников</td>
+                                    <td colspan="6" class="py-4 text-center text-gray-500 italic">Әзірге тіркелген қатысушылар жоқ</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -695,25 +695,25 @@
                 <div class="w-12 h-12 bg-wine-800 text-gold-400 rounded-full flex items-center justify-center mx-auto text-xl">
                     <i class="fa-solid fa-lock"></i>
                 </div>
-                <h3 class="font-serif text-2xl font-bold text-wine-900">Режим организатора</h3>
-                <p class="text-sm text-gray-600">Введите пароль администратора (по умолчанию: admin123)</p>
+                <h3 class="font-serif text-2xl font-bold text-wine-900">Ұйымдастырушы режимі</h3>
+                <p class="text-sm text-gray-600">Әкімші құпиясөзін енгізіңіз (бастапқы құпиясөз: admin123)</p>
 
                 <div class="max-w-xs mx-auto">
-                    <input type="password" id="admin-pass-input" placeholder="Пароль" 
+                    <input type="password" id="admin-pass-input" placeholder="Құпиясөз" 
                         class="w-full px-4 py-2.5 rounded-xl border border-gold-400/60 bg-white text-center focus:outline-none focus:ring-2 focus:ring-wine-800">
-                    <p id="admin-auth-error" class="hidden text-xs text-red-600 font-bold mt-2">Неверный пароль!</p>
+                    <p id="admin-auth-error" class="hidden text-xs text-red-600 font-bold mt-2">Құпиясөз қате!</p>
                 </div>
 
                 <button onclick="verifyAdminPassword()" class="wine-gradient-btn text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow">
-                    Войти
+                    Кіру
                 </button>
             </div>
 
             <!-- Admin Control Section -->
             <div id="admin-control-section" class="hidden space-y-6">
                 <div class="flex items-center justify-between border-b border-gold-400/30 pb-3">
-                    <h3 class="font-serif text-xl font-bold text-wine-900">Панель организатора</h3>
-                    <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">Сессия активна</span>
+                    <h3 class="font-serif text-xl font-bold text-wine-900">Ұйымдастырушы тақтасы</h3>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">Сеанс белсенді</span>
                 </div>
 
                 <!-- Google Sheets Web App URL Setting -->
@@ -726,20 +726,20 @@
                         <input type="url" id="google-sheets-url-input" placeholder="https://script.google.com/macros/s/.../exec" 
                             class="w-full px-3 py-2 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-wine-800 font-mono text-[11px]">
                         <button onclick="saveGoogleSheetsUrl()" class="wine-gradient-btn text-white px-4 py-2 rounded-xl font-bold transition whitespace-nowrap">
-                            Сохранить
+                            Сақтау
                         </button>
                     </div>
-                    <p id="sheets-connect-status" class="text-xs text-gray-600">Для общей базы укажите URL опубликованного Apps Script (/exec). Он сохраняется в этом браузере.</p>
-                    <button type="button" onclick="testGoogleSheetsConnection()" class="text-wine-800 underline font-semibold">Проверить соединение</button>
+                    <p id="sheets-connect-status" class="text-xs text-gray-600">Ортақ база үшін жарияланған Apps Script сілтемесін (/exec) енгізіңіз. Ол осы браузерде сақталады.</p>
+                    <button type="button" onclick="testGoogleSheetsConnection()" class="text-wine-800 underline font-semibold">Байланысты тексеру</button>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 text-center">
                     <div class="p-4 bg-white/80 rounded-xl border border-gold-400/30 shadow-sm">
-                        <span class="text-xs text-gray-500 uppercase block font-semibold">Всего участников</span>
+                        <span class="text-xs text-gray-500 uppercase block font-semibold">Барлық қатысушылар</span>
                         <span id="admin-total-participants" class="font-mono text-3xl font-bold text-wine-800">0</span>
                     </div>
                     <div class="p-4 bg-white/80 rounded-xl border border-gold-400/30 shadow-sm">
-                        <span class="text-xs text-gray-500 uppercase block font-semibold">Получено ответов</span>
+                        <span class="text-xs text-gray-500 uppercase block font-semibold">Қабылданған жауаптар</span>
                         <span id="admin-total-votes" class="font-mono text-3xl font-bold text-wine-800">0</span>
                     </div>
                 </div>
@@ -748,22 +748,22 @@
                 <div class="bg-white/90 rounded-2xl p-4 border border-gold-400/30 max-h-60 overflow-y-auto shadow-inner">
                     <h4 class="font-serif font-bold text-wine-900 text-sm mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-list-check text-wine-700"></i>
-                        Полный журнал ответов для анализа
+                        Талдауға арналған жауаптардың толық журналы
                     </h4>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs text-wine-900">
                             <thead class="bg-peach-100 uppercase text-[10px] text-wine-800 font-bold border-b border-gold-400/30 sticky top-0 bg-peach-100">
                                 <tr>
                                     <th class="py-2 px-2">№</th>
-                                    <th class="py-2 px-2">Участник</th>
-                                    <th class="py-2 px-2">Эмоция</th>
-                                    <th class="py-2 px-2">Выбранные темы</th>
-                                    <th class="py-2 px-2">Рекомендация</th>
+                                    <th class="py-2 px-2">Қатысушы</th>
+                                    <th class="py-2 px-2">Сезім</th>
+                                    <th class="py-2 px-2">Таңдалған тақырыптар</th>
+                                    <th class="py-2 px-2">Ұсыным</th>
                                 </tr>
                             </thead>
                             <tbody id="admin-participants-table-body" class="divide-y divide-gray-200">
                                 <tr>
-                                    <td colspan="5" class="py-3 text-center text-gray-500 italic">Нет зарегистрированных участников</td>
+                                    <td colspan="5" class="py-3 text-center text-gray-500 italic">Тіркелген қатысушылар жоқ</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -773,17 +773,17 @@
                 <div class="space-y-3 pt-2">
                     <button onclick="exportToCSV()" class="w-full gold-gradient-btn font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow">
                         <i class="fa-solid fa-file-excel"></i>
-                        <span>Выгрузить результаты в Excel (CSV)</span>
+                        <span>Нәтижелерді Excel (CSV) файлына жүктеу</span>
                     </button>
 
                     <button onclick="confirmResetResults()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition shadow">
                         <i class="fa-solid fa-trash-can"></i>
-                        <span>Сбросить результаты перед новым туром</span>
+                        <span>Жаңа кезең алдында нәтижелерді тазалау</span>
                     </button>
                 </div>
 
                 <div class="text-center pt-2">
-                    <button onclick="closeAdminModal()" class="text-xs text-gray-500 hover:underline font-medium">Закрыть окно</button>
+                    <button onclick="closeAdminModal()" class="text-xs text-gray-500 hover:underline font-medium">Терезені жабу</button>
                 </div>
             </div>
         </div>
@@ -803,6 +803,27 @@
         let currentUser = { surname: '', firstname: '' };
         let currentVote = { emotion: '', topics: [], recommendation: '' };
         let charts = {};
+
+        // Translate historical Russian answers for display, charts and CSV without changing stored source data.
+        const legacyValues = {
+            'Радость': 'Қуаныш', 'Грусть': 'Мұң', 'Любовь': 'Махаббат',
+            'Преданность': 'Адалдық', 'Семья': 'Отбасы', 'Терпение': 'Сабыр',
+            'Семейные отношения и взаимоотношения между близкими': 'Отбасылық қарым-қатынас және жақындар арасындағы байланыс',
+            'Противоречия между поколениями': 'Ұрпақтар арасындағы қайшылықтар',
+            'Вопросы любви, уважения и взаимоотношений': 'Махаббат, сыйластық және өзара қарым-қатынас мәселелері',
+            'Роль женщины в семье': 'Әйелдің отбасындағы рөлі',
+            'Авторский взгляд на человеческие взаимоотношения': 'Адамдар арасындағы қарым-қатынасқа автордың көзқарасы',
+            'Жизненные ситуации, в которых раскрываются человеческие отношения': 'Адами қарым-қатынасты ашып көрсететін өмірлік жағдайлар',
+            'ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ!': 'МІНДЕТТІ ТҮРДЕ ОҚЫҢЫЗ!',
+            'ДЛЯ ЛЮБИТЕЛЕЙ ДРАМЫ': 'ДРАМАНЫ ҰНАТАТЫНДАРҒА'
+        };
+        const kazakhAnswer = (value) => legacyValues[value] || value;
+        function localizeParticipant(p) {
+            return {...p, emotion: kazakhAnswer(p.emotion),
+                topics: (Array.isArray(p.topics) ? p.topics : (p.topics || '').split('; ')).map(kazakhAnswer),
+                recommendation: kazakhAnswer(p.recommendation)};
+        }
+
 
         // Navigation Controller
         function navigateTo(viewId) {
@@ -848,7 +869,7 @@
 
             if (!surname || !firstname) {
                 if (errDiv) errDiv.classList.remove('hidden');
-                if (errMsg) errMsg.innerText = "Пожалуйста, заполните обе графы!";
+                if (errMsg) errMsg.innerText = "Екі өрісті де толтырыңыз!";
                 return;
             }
 
@@ -860,7 +881,7 @@
 
             if (duplicate) {
                 if (errDiv) errDiv.classList.remove('hidden');
-                if (errMsg) errMsg.innerText = "Участник с таким именем и фамилией уже проголосовал!";
+                if (errMsg) errMsg.innerText = "Қатысушы с таким именем и фамилией уже проголосовал!";
                 return;
             }
 
@@ -979,7 +1000,7 @@
             return new Promise((resolve, reject) => {
                 const url = appState.googleSheetsUrl;
                 if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/.test(url)) {
-                    reject(new Error('Укажите адрес опубликованного Google Apps Script, заканчивающийся на /exec.'));
+                    reject(new Error('Соңында /exec бар жарияланған Google Apps Script сілтемесін енгізіңіз.'));
                     return;
                 }
                 const callback = 'vernissageCallback_' + Math.random().toString(36).slice(2);
@@ -992,9 +1013,9 @@
                     delete window[callback];
                     script.remove();
                 }
-                const timer = setTimeout(() => {cleanup();reject(new Error('Сервер не ответил. Проверьте доступ «Все» и опубликованную версию Apps Script.'));}, 12000);
-                window[callback] = (data) => {cleanup();if (data && data.ok === false) reject(new Error(data.error || 'Ошибка Google Apps Script'));else resolve(data);};
-                script.onerror = () => {cleanup();reject(new Error('Не удалось прочитать Google Таблицу. Проверьте URL приложения и его доступ.'));};
+                const timer = setTimeout(() => {cleanup();reject(new Error('Сервер жауап бермеді. Қолжетімділік «Барлығы» деп орнатылғанын және Apps Script жарияланған нұсқасын тексеріңіз.'));}, 12000);
+                window[callback] = (data) => {cleanup();if (data && data.ok === false) reject(new Error(data.error || 'Google Apps Script қатесі'));else resolve(data);};
+                script.onerror = () => {cleanup();reject(new Error('Google кестесінен деректер оқылмады. Қосымша сілтемесі мен қолжетімділігін тексеріңіз.'));};
                 const endpoint = new URL(url);
                 endpoint.searchParams.set('action','read');
                 endpoint.searchParams.set('callback', callback);
@@ -1007,8 +1028,8 @@
         async function fetchCloudData() {
             if (!appState.googleSheetsUrl) return [];
             const data = await readCloudWithJsonp();
-            if (!Array.isArray(data)) throw new Error('Сервер вернул некорректный формат ответов.');
-            appState.participants = data.map(item => ({
+            if (!Array.isArray(data)) throw new Error('Сервер жауаптарды қате пішімде қайтарды.');
+            appState.participants = data.map(item => localizeParticipant({
                 id: item.id || '', surname: item.surname || '', firstname: item.firstname || '',
                 emotion: item.emotion || '', topics: typeof item.topics === 'string' ?
                     item.topics.split('; ').filter(Boolean) : (item.topics || []),
@@ -1040,7 +1061,7 @@
             const btn = document.getElementById('step3-finish-btn');
             if (btn && btn.disabled) return;
             if (!appState.googleSheetsUrl) {
-                showSaveStatus('Google Таблица не подключена. Организатор должен указать адрес опубликованного Apps Script в меню «База данных».');
+                showSaveStatus('Google Таблица не подключена. Организатор должен указать адрес опубликованного Apps Script в меню «Деректер базасы».');
                 return;
             }
             const newRecord = {
@@ -1051,7 +1072,7 @@
                 timestamp: new Date().toISOString()
             };
             if (btn) {btn.disabled = true;btn.classList.add('opacity-50');}
-            showSaveStatus('Сохраняем ответ в Google Таблице и проверяем запись…', false);
+            showSaveStatus('Жауап Google кестесіне сақталып, жазба тексеріліп жатыр…', false);
             try {
                 await sendToGoogleSheets(newRecord);
                 let confirmed = false;
@@ -1060,12 +1081,12 @@
                     const all = await fetchCloudData();
                     if (all.some(p => p.id === newRecord.id)) {confirmed = true;break;}
                 }
-                if (!confirmed) throw new Error('Запись не подтверждена Google Таблицей. Проверьте публикацию Apps Script, доступ и журнал выполнения. Повторная отправка может создать дубликат.');
-                showSaveStatus('Ответ сохранён в Google Таблице!', false);
+                if (!confirmed) throw new Error('Google кестесіндегі жазба расталмады. Apps Script жариялануын, қолжетімділігін және орындалу журналын тексеріңіз. Қайта жіберу қайталанған жазба жасауы мүмкін.');
+                showSaveStatus('Жауап Google кестесіне сақталды!', false);
                 if (typeof confetti === 'function') confetti({particleCount:100,spread:80,origin:{y:0.6}});
                 navigateTo('final');
             } catch (e) {
-                showSaveStatus('Не удалось подтвердить сохранение: ' + e.message);
+                showSaveStatus('Сақталғанын растау мүмкін болмады: ' + e.message);
                 console.error('Google Sheets save error:',e);
             } finally {
                 if (btn) {btn.disabled=false;btn.classList.remove('opacity-50');}
@@ -1087,7 +1108,7 @@
                 if (raw) {
                     const parsed = JSON.parse(raw);
                     if (parsed.participants && parsed.participants.length > 0) {
-                        appState.participants = parsed.participants;
+                        appState.participants = parsed.participants.map(localizeParticipant);
                     }
                     // Use the shared Apps Script URL configured above, not an outdated URL cached in this browser.
                 }
@@ -1097,7 +1118,7 @@
         }
 
         function syncDataFromCloud() {
-            fetchCloudData().catch(e => showSaveStatus('Ошибка синхронизации: ' + e.message));
+            fetchCloudData().catch(e => showSaveStatus('Синхрондау қатесі: ' + e.message));
         }
 
         function refreshAllViews() {
@@ -1138,20 +1159,20 @@
             if (input) {
                 appState.googleSheetsUrl = input.value.trim();
                 saveData();
-                showSaveStatus('URL сохранён в этом браузере. Проверьте соединение.', false);
+                showSaveStatus('Сілтеме осы браузерде сақталды. Байланысты тексеріңіз.', false);
                 testGoogleSheetsConnection();
             }
         }
 
         async function testGoogleSheetsConnection() {
             const status = document.getElementById('sheets-connect-status');
-            if(status) status.textContent = 'Проверяем подключение…';
+            if(status) status.textContent = 'Қосылым тексеріліп жатыр…';
             try {
                 const participants = await fetchCloudData();
-                if(status) status.textContent = 'Соединение работает. Записей в Google Таблице: ' + participants.length;
-                showSaveStatus('Google Таблица подключена. Записей: ' + participants.length, false);
+                if(status) status.textContent = 'Байланыс орнатылды. Google кестесіндегі жазбалар саны: ' + participants.length;
+                showSaveStatus('Google кестесі қосылды. Жазбалар саны: ' + participants.length, false);
             } catch(e) {
-                if(status) status.textContent = 'Ошибка: ' + e.message;
+                if(status) status.textContent = 'Қате: ' + e.message;
                 showSaveStatus(e.message);
             }
         }
@@ -1168,7 +1189,7 @@
             if (!body) return;
 
             if (total === 0) {
-                body.innerHTML = `<tr><td colspan="5" class="py-3 text-center text-gray-500 italic">Нет зарегистрированных участников</td></tr>`;
+                body.innerHTML = `<tr><td colspan="5" class="py-3 text-center text-gray-500 italic">Тіркелген қатысушылар жоқ</td></tr>`;
                 return;
             }
 
@@ -1190,7 +1211,7 @@
             const total = appState.participants.length;
 
             // Chart 1: Emotions
-            const emotionCounts = { 'Радость': 0, 'Грусть': 0, 'Любовь': 0, 'Преданность': 0, 'Семья': 0, 'Терпение': 0 };
+            const emotionCounts = { 'Қуаныш': 0, 'Мұң': 0, 'Махаббат': 0, 'Адалдық': 0, 'Отбасы': 0, 'Сабыр': 0 };
             appState.participants.forEach(p => {
                 if (emotionCounts[p.emotion] !== undefined) emotionCounts[p.emotion]++;
             });
@@ -1213,20 +1234,20 @@
 
             // Chart 2: Topics
             const topicCounts = {
-                'Семейные отношения': 0,
-                'Противоречия поколений': 0,
-                'Любовь и уважение': 0,
-                'Роль женщины': 0,
-                'Авторский взгляд': 0,
-                'Жизненные ситуации': 0
+                'Отбасылық қарым-қатынас': 0,
+                'Ұрпақтар қайшылығы': 0,
+                'Махаббат и уважение': 0,
+                'Әйелдің рөлі': 0,
+                'Автор көзқарасы': 0,
+                'Өмірлік жағдайлар': 0
             };
             const topicKeys = [
-                'Семейные отношения и взаимоотношения между близкими',
-                'Противоречия между поколениями',
-                'Вопросы любви, уважения и взаимоотношений',
-                'Роль женщины в семье',
-                'Авторский взгляд на человеческие взаимоотношения',
-                'Жизненные ситуации, в которых раскрываются человеческие отношения'
+                'Отбасылық қарым-қатынас және жақындар арасындағы байланыс',
+                'Ұрпақтар арасындағы қайшылықтар',
+                'Махаббат, сыйластық және өзара қарым-қатынас мәселелері',
+                'Әйелдің отбасындағы рөлі',
+                'Адамдар арасындағы қарым-қатынасқа автордың көзқарасы',
+                'Адами қарым-қатынасты ашып көрсететін өмірлік жағдайлар'
             ];
 
             appState.participants.forEach(p => {
@@ -1251,7 +1272,7 @@
                     data: {
                         labels: Object.keys(topicCounts),
                         datasets: [{
-                            label: '% от проголосовавших',
+                            label: 'Дауыс бергендердің % үлесі',
                             data: topicPercentages,
                             backgroundColor: '#8B263E'
                         }]
@@ -1266,7 +1287,7 @@
             }
 
             // Chart 3: Recommendations
-            const recCounts = { 'ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ!': 0, 'ДЛЯ ЛЮБИТЕЛЕЙ ДРАМЫ': 0 };
+            const recCounts = { 'МІНДЕТТІ ТҮРДЕ ОҚЫҢЫЗ!': 0, 'ДРАМАНЫ ҰНАТАТЫНДАРҒА': 0 };
             appState.participants.forEach(p => {
                 if (recCounts[p.recommendation] !== undefined) recCounts[p.recommendation]++;
             });
@@ -1311,7 +1332,7 @@
             if (!tbody) return;
 
             if (totalCount === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-gray-500 italic">Пока нет зарегистрированных ответов в базе данных</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-gray-500 italic">Деректер базасында әзірге тіркелген жауаптар жоқ</td></tr>`;
                 return;
             }
 
@@ -1334,14 +1355,14 @@
                         <td class="py-3 px-3 font-medium text-wine-800">${emotionText}</td>
                         <td class="py-3 px-3 text-xs text-gray-700 max-w-xs">${topicsText}</td>
                         <td class="py-3 px-3 font-medium text-xs text-wine-900">${recText}</td>
-                        <td class="py-3 px-3 text-xs text-gray-500">${p.timestamp || 'Только что'}</td>
+                        <td class="py-3 px-3 text-xs text-gray-500">${p.timestamp || 'Жаңа ғана'}</td>
                     </tr>
                 `;
             }).join('');
         }
 
         function confirmResetResults() {
-            if (confirm("Вы уверены, что хотите сбросить все результаты голосования? Это действие невозможно отменить.")) {
+            if (confirm("Дауыс беру нәтижелерінің бәрін тазалағыңыз келетініне сенімдісіз бе? Бұл әрекетті қайтару мүмкін емес.")) {
                 appState.participants = [];
                 saveData();
                 closeAdminModal();
@@ -1350,12 +1371,12 @@
 
         function exportToCSV() {
             if (!appState.participants || appState.participants.length === 0) {
-                alert("Нет данных для выгрузки.");
+                alert("Жүктеп алуға арналған деректер жоқ.");
                 return;
             }
 
             let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
-            csvContent += "№,Фамилия,Имя,Эмоция,Выбранные Темы,Рекомендация,Время\n";
+            csvContent += "№,Тегі,Аты,Сезім,Выбранные Темы,Ұсыным,Уақыты\n";
 
             appState.participants.forEach((p, i) => {
                 const topicsStr = `"${(p.topics || []).join('; ')}"`;
